@@ -92,9 +92,9 @@ You can customize the colors by adding these rules to your VSCode settings:
 
 ## Installation
 
-### From Marketplace (Coming Soon)
+### From Marketplace
 
-Search for "Markdown French Guillemets" in the VS Code Extensions view.
+[Install from VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=PeacockeryStudio.markdown-guillemets) or search for "Markdown French Guillemets" in the VS Code Extensions view.
 
 ### From VSIX (Local Install)
 
@@ -142,6 +142,24 @@ Search for "Markdown French Guillemets" in the VS Code Extensions view.
 - [ ] User-defined custom bracket pairs
 - [ ] Alternative highlighting styles (underline, background color, etc.)
 - [ ] Nested bracket highlighting with different colors for depth levels
+
+## Releasing
+
+This project includes a release script to automate version bumping and publishing:
+
+```bash
+./release.sh patch   # Bug fixes: 0.0.1 → 0.0.2
+./release.sh minor   # New features: 0.0.2 → 0.1.0  
+./release.sh major   # Breaking changes: 0.1.0 → 1.0.0
+```
+
+The script will:
+1. Bump version in package.json
+2. Update CHANGELOG.md
+3. Commit and tag the release
+4. Build the .vsix package
+5. Create a GitHub release
+6. Provide instructions for publishing to VS Code Marketplace
 
 ## License
 
