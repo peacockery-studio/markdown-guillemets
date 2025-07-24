@@ -8,7 +8,7 @@
         }
       },
       {
-        "scope": "punctuation.definition.guillemets.begin.markdown, punctuation.definition.guillemets.end.markdown",
+        "scope": "punctuation.definition.guillemets.markdown",
         "settings": {
           "foreground": "#E06C75",
           "fontStyle": "bold"
@@ -21,7 +21,7 @@
         }
       },
       {
-        "scope": "punctuation.definition.square.begin.markdown, punctuation.definition.square.end.markdown",
+        "scope": "punctuation.definition.square.markdown",
         "settings": {
           "foreground": "#C678DD",
           "fontStyle": "bold"
@@ -34,7 +34,7 @@
         }
       },
       {
-        "scope": "punctuation.definition.round.begin.markdown, punctuation.definition.round.end.markdown",
+        "scope": "punctuation.definition.round.markdown",
         "settings": {
           "foreground": "#56B6C2",
           "fontStyle": "bold"
@@ -47,7 +47,7 @@
         }
       },
       {
-        "scope": "punctuation.definition.curly.begin.markdown, punctuation.definition.curly.end.markdown",
+        "scope": "punctuation.definition.curly.markdown",
         "settings": {
           "foreground": "#BE5046",
           "fontStyle": "bold"

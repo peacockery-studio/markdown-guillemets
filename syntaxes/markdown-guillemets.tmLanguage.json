@@ -8,12 +8,12 @@
       "end": "»",
       "beginCaptures": {
         "0": {
-          "name": "punctuation.definition.guillemets.begin.markdown"
+          "name": "punctuation.definition.guillemets.markdown"
         }
       },
       "endCaptures": {
         "0": {
-          "name": "punctuation.definition.guillemets.end.markdown"
+          "name": "punctuation.definition.guillemets.markdown"
         }
       },
       "patterns": [
@@ -28,12 +28,12 @@
       "end": "\\]",
       "beginCaptures": {
         "0": {
-          "name": "punctuation.definition.square.begin.markdown"
+          "name": "punctuation.definition.square.markdown"
         }
       },
       "endCaptures": {
         "0": {
-          "name": "punctuation.definition.square.end.markdown"
+          "name": "punctuation.definition.square.markdown"
         }
       },
       "patterns": [
@@ -48,12 +48,12 @@
       "end": "\\)",
       "beginCaptures": {
         "0": {
-          "name": "punctuation.definition.round.begin.markdown"
+          "name": "punctuation.definition.round.markdown"
         }
       },
       "endCaptures": {
         "0": {
-          "name": "punctuation.definition.round.end.markdown"
+          "name": "punctuation.definition.round.markdown"
         }
       },
       "patterns": [
@@ -68,12 +68,12 @@
       "end": "\\}",
       "beginCaptures": {
         "0": {
-          "name": "punctuation.definition.curly.begin.markdown"
+          "name": "punctuation.definition.curly.markdown"
         }
       },
       "endCaptures": {
         "0": {
-          "name": "punctuation.definition.curly.end.markdown"
+          "name": "punctuation.definition.curly.markdown"
         }
       },
       "patterns": [
