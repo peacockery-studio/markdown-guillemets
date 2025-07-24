@@ -1,0 +1,86 @@
+{
+  "scopeName": "markdown.guillemets",
+  "injectionSelector": "text.html.markdown",
+  "patterns": [
+    {
+      "name": "string.quoted.guillemets.markdown",
+      "begin": "«",
+      "end": "»",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.guillemets.begin.markdown"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.guillemets.end.markdown"
+        }
+      },
+      "patterns": [
+        {
+          "include": "text.html.markdown#inline"
+        }
+      ]
+    },
+    {
+      "name": "string.quoted.square.markdown",
+      "begin": "\\[",
+      "end": "\\]",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.square.begin.markdown"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.square.end.markdown"
+        }
+      },
+      "patterns": [
+        {
+          "include": "text.html.markdown#inline"
+        }
+      ]
+    },
+    {
+      "name": "string.quoted.round.markdown",
+      "begin": "\\(",
+      "end": "\\)",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.round.begin.markdown"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.round.end.markdown"
+        }
+      },
+      "patterns": [
+        {
+          "include": "text.html.markdown#inline"
+        }
+      ]
+    },
+    {
+      "name": "string.quoted.curly.markdown",
+      "begin": "\\{",
+      "end": "\\}",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.curly.begin.markdown"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.curly.end.markdown"
+        }
+      },
+      "patterns": [
+        {
+          "include": "text.html.markdown#inline"
+        }
+      ]
+    }
+  ]
+}

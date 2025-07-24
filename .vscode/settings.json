@@ -1,0 +1,58 @@
+{
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "string.quoted.guillemets.markdown",
+        "settings": {
+          "foreground": "#98C379"
+        }
+      },
+      {
+        "scope": "punctuation.definition.guillemets.begin.markdown, punctuation.definition.guillemets.end.markdown",
+        "settings": {
+          "foreground": "#E06C75",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "string.quoted.square.markdown",
+        "settings": {
+          "foreground": "#61AFEF"
+        }
+      },
+      {
+        "scope": "punctuation.definition.square.begin.markdown, punctuation.definition.square.end.markdown",
+        "settings": {
+          "foreground": "#C678DD",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "string.quoted.round.markdown",
+        "settings": {
+          "foreground": "#D19A66"
+        }
+      },
+      {
+        "scope": "punctuation.definition.round.begin.markdown, punctuation.definition.round.end.markdown",
+        "settings": {
+          "foreground": "#56B6C2",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "string.quoted.curly.markdown",
+        "settings": {
+          "foreground": "#E5C07B"
+        }
+      },
+      {
+        "scope": "punctuation.definition.curly.begin.markdown, punctuation.definition.curly.end.markdown",
+        "settings": {
+          "foreground": "#BE5046",
+          "fontStyle": "bold"
+        }
+      }
+    ]
+  }
+}

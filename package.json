@@ -1,0 +1,44 @@
+{
+  "name": "markdown-guillemets",
+  "displayName": "Markdown French Guillemets",
+  "description": "Syntax highlighting for guillemets «», brackets [], parentheses (), and braces {} in Markdown",
+  "publisher": "peacockery-studio",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/peacockery-studio/markdown-guillemets"
+  },
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "markdown",
+    "guillemets",
+    "french",
+    "brackets",
+    "syntax",
+    "highlighting"
+  ],
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#2E3440",
+    "theme": "dark"
+  },
+  "contributes": {
+    "grammars": [
+      {
+        "scopeName": "markdown.guillemets",
+        "path": "./syntaxes/markdown-guillemets.tmLanguage.json",
+        "injectTo": [
+          "text.html.markdown"
+        ],
+        "embeddedLanguages": {
+          "meta.embedded.block.guillemets": "markdown"
+        }
+      }
+    ]
+  }
+}
