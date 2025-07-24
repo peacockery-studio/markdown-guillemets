@@ -8,6 +8,7 @@ A VSCode extension that adds syntax highlighting for French guillemets and commo
 ## Features
 
 This extension provides distinct syntax highlighting for:
+
 - **French guillemets**: `«text»`
 - **Square brackets**: `[text]`
 - **Parentheses**: `(text)`
@@ -91,10 +92,56 @@ You can customize the colors by adding these rules to your VSCode settings:
 
 ## Installation
 
+### From Marketplace (Coming Soon)
+
+Search for "Markdown French Guillemets" in the VS Code Extensions view.
+
+### From VSIX (Local Install)
+
+1. Download the `.vsix` file from [Releases](https://github.com/peacockery-studio/markdown-guillemets/releases)
+2. In VS Code: `Extensions: Install from VSIX...` command
+3. Select the downloaded `.vsix` file
+
+### From Source
+
 1. Clone this repository
-2. Open in VSCode
-3. Press `F5` to test in Extension Development Host
-4. Package with `vsce package` for local installation
+2. Run `vsce package` (requires `npm install -g @vscode/vsce`)
+3. Install the generated `.vsix` file as above
+
+## Roadmap
+
+### Completed
+
+- [x] French guillemets «» syntax highlighting
+- [x] Square brackets [] syntax highlighting  
+- [x] Parentheses () syntax highlighting
+- [x] Curly braces {} syntax highlighting
+- [x] Customizable colors via VSCode settings
+- [x] Support for nested Markdown formatting
+
+### Planned Features
+
+#### Simple Additions
+
+- [ ] Single quotes 'text' and double quotes "text" highlighting
+- [ ] Backticks `text` highlighting
+- [ ] Angle brackets <text> for HTML/XML-like syntax
+- [ ] International quote styles (German „quotes", Spanish ¿questions?, Japanese 「brackets」)
+
+#### Advanced Features
+
+- [ ] Smart bracket matching - highlight pairs when cursor is on bracket
+- [ ] Folding support - collapse content between brackets
+- [ ] Snippets - type `guil` → auto-insert `«|»` with cursor positioned
+- [ ] Commands - convert/wrap selected text with different bracket types
+- [ ] Multi-language support - extend beyond Markdown to other file types
+
+#### Configuration Options
+
+- [ ] Toggle highlighting on/off per bracket type
+- [ ] User-defined custom bracket pairs
+- [ ] Alternative highlighting styles (underline, background color, etc.)
+- [ ] Nested bracket highlighting with different colors for depth levels
 
 ## License
 

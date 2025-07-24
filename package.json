@@ -2,7 +2,7 @@
   "name": "markdown-guillemets",
   "displayName": "Markdown French Guillemets",
   "description": "Syntax highlighting for guillemets «», brackets [], parentheses (), and braces {} in Markdown",
-  "publisher": "peacockery-studio",
+  "publisher": "PeacockeryStudio",
   "repository": {
     "type": "git",
     "url": "https://github.com/peacockery-studio/markdown-guillemets"
