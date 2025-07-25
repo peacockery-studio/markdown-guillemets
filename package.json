@@ -27,7 +27,23 @@
     "color": "#2E3440",
     "theme": "dark"
   },
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onLanguage:markdown"
+  ],
   "contributes": {
+    "commands": [
+      {
+        "command": "markdown-guillemets.customizeColors",
+        "title": "Customize Colors",
+        "category": "Markdown Guillemets"
+      },
+      {
+        "command": "markdown-guillemets.quickSetup",
+        "title": "Quick Setup",
+        "category": "Markdown Guillemets"
+      }
+    ],
     "grammars": [
       {
         "scopeName": "markdown.guillemets",
@@ -39,6 +55,25 @@
           "meta.embedded.block.guillemets": "markdown"
         }
       }
+    ]
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.1.2",
+    "@types/vscode": "^1.102.0",
+    "@vscode/vsce": "^3.0.0",
+    "lint-staged": "^16.1.2",
+    "typescript": "^5.0.0",
+    "ultracite": "5.0.48"
+  },
+  "scripts": {
+    "compile": "bunx tsc -p ./",
+    "watch": "bunx tsc -watch -p ./",
+    "lint": "bunx ultracite format",
+    "package": "bunx vsce package"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,jsonc,css,scss,md,mdx}": [
+      "bunx ultracite format"
     ]
   }
 }

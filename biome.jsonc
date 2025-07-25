@@ -1,0 +1,26 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.1.2/schema.json",
+  "extends": ["ultracite"],
+  "files": {
+    "includes": ["**", "!bun.lock", "!out/**"]
+  },
+  "linter": {
+    "rules": {
+      "performance": {
+        "noNamespaceImport": "off",
+        "useTopLevelRegex": "off"
+      },
+      "style": {
+        "useDefaultSwitchClause": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "off",
+        "noEmptyBlockStatements": "off"
+      },
+      "nursery": {
+        "noAwaitInLoop": "off",
+        "noShadow": "off"
+      }
+    }
+  }
+}

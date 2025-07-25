@@ -1,6 +1,6 @@
 {
   "scopeName": "markdown.guillemets",
-  "injectionSelector": "text.html.markdown",
+  "injectionSelector": "L:text.html.markdown",
   "patterns": [
     {
       "name": "string.quoted.guillemets.markdown",
@@ -15,12 +15,7 @@
         "0": {
           "name": "punctuation.definition.guillemets.markdown"
         }
-      },
-      "patterns": [
-        {
-          "include": "text.html.markdown#inline"
-        }
-      ]
+      }
     },
     {
       "name": "string.quoted.square.markdown",
@@ -35,12 +30,7 @@
         "0": {
           "name": "punctuation.definition.square.markdown"
         }
-      },
-      "patterns": [
-        {
-          "include": "text.html.markdown#inline"
-        }
-      ]
+      }
     },
     {
       "name": "string.quoted.round.markdown",
@@ -55,12 +45,7 @@
         "0": {
           "name": "punctuation.definition.round.markdown"
         }
-      },
-      "patterns": [
-        {
-          "include": "text.html.markdown#inline"
-        }
-      ]
+      }
     },
     {
       "name": "string.quoted.curly.markdown",
@@ -75,12 +60,22 @@
         "0": {
           "name": "punctuation.definition.curly.markdown"
         }
-      },
-      "patterns": [
-        {
-          "include": "text.html.markdown#inline"
+      }
+    },
+    {
+      "name": "string.quoted.angle.markdown",
+      "begin": "<",
+      "end": ">",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.angle.markdown"
         }
-      ]
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.angle.markdown"
+        }
+      }
     }
   ]
 }

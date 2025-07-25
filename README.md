@@ -13,12 +13,42 @@ This extension provides distinct syntax highlighting for:
 - **Square brackets**: `[text]`
 - **Parentheses**: `(text)`
 - **Curly braces**: `{text}`
+- **Angle brackets**: `<text>`
 
 Each bracket type gets its own scope, allowing you to customize colors independently through your theme or settings.
 
 ## Customization
 
-You can customize the colors by adding these rules to your VSCode settings:
+### Interactive Color Picker (New!)
+
+No more manual JSON editing! Use the built-in color picker:
+
+1. **Command Palette** (`Cmd+Shift+P` / `Ctrl+Shift+P`)
+2. Type: `Markdown Guillemets: Customize Colors`
+3. Choose what to customize:
+   - Individual punctuation colors (guillemets, brackets, parentheses, braces)
+   - Preset themes (Ocean Breeze, Forest Glow, Sunset Vibes, etc.)
+   - Reset to defaults
+
+#### Two-Step Color Selection
+When customizing individual colors, you'll get a user-friendly picker:
+
+**Step 1:** Choose color family (Red, Blue, Green, Purple, etc.)  
+**Step 2:** Choose intensity (Light 50-300, Medium 400-600, Dark 700-950)
+
+Changes apply instantly - no restart needed!
+
+### Manual Configuration
+
+Advanced users can still customize colors by adding these rules to your VSCode settings.
+
+### Default Color Scheme
+
+- **Guillemets «»**: Green text (#98C379) with bold red symbols (#E06C75)
+- **Square brackets []**: Blue text (#61AFEF) with bold purple symbols (#C678DD)
+- **Parentheses ()**: Orange text (#D19A66) with bold cyan symbols (#56B6C2)
+- **Curly braces {}**: Yellow text (#E5C07B) with bold red-orange symbols (#BE5046)
+- **Angle brackets <>**: Magenta text (#FF79C6) with bold dark magenta symbols (#BD5FA6)
 
 ```json
 "editor.tokenColorCustomizations": {
@@ -74,6 +104,20 @@ You can customize the colors by adding these rules to your VSCode settings:
         "foreground": "#BE5046",  // Red-orange color for the actual { and } symbols
         "fontStyle": "bold"
       }
+    },
+
+    {
+      "scope": "string.quoted.angle.markdown",
+      "settings": {
+        "foreground": "#FF79C6"  // Magenta text inside <angle brackets>
+      }
+    },
+    {
+      "scope": "punctuation.definition.angle.markdown",
+      "settings": {
+        "foreground": "#BD5FA6",  // Dark magenta color for the actual < and > symbols
+        "fontStyle": "bold"
+      }
     }
   ]
 }
@@ -81,14 +125,16 @@ You can customize the colors by adding these rules to your VSCode settings:
 
 ## Available Scopes
 
-- `string.quoted.guillemets.markdown` - Text between guillemets
+- `string.quoted.guillemets.markdown` - Text between guillemets `«like this»`
 - `punctuation.definition.guillemets.markdown` - The guillemets themselves `«»`
-- `string.quoted.square.markdown` - Text between square brackets
+- `string.quoted.square.markdown` - Text between square brackets `[like this]`
 - `punctuation.definition.square.markdown` - The square brackets themselves `[]`
-- `string.quoted.round.markdown` - Text between parentheses
+- `string.quoted.round.markdown` - Text between parentheses `(like this)`
 - `punctuation.definition.round.markdown` - The parentheses themselves `()`
-- `string.quoted.curly.markdown` - Text between curly braces
+- `string.quoted.curly.markdown` - Text between curly braces `{like this}`
 - `punctuation.definition.curly.markdown` - The curly braces themselves `{}`
+- `string.quoted.angle.markdown` - Text between angle brackets `<like this>`
+- `punctuation.definition.angle.markdown` - The angle brackets themselves `<>`
 
 ## Installation
 
@@ -112,20 +158,25 @@ You can customize the colors by adding these rules to your VSCode settings:
 
 ### Completed
 
-- [x] French guillemets «» syntax highlighting
-- [x] Square brackets [] syntax highlighting  
-- [x] Parentheses () syntax highlighting
-- [x] Curly braces {} syntax highlighting
-- [x] Customizable colors via VSCode settings
-- [x] Support for nested Markdown formatting
+- [x] French guillemets «» syntax highlighting (July 25, 2025)
+- [x] Square brackets [] syntax highlighting (July 25, 2025)
+- [x] Parentheses () syntax highlighting (July 25, 2025)
+- [x] Curly braces {} syntax highlighting (July 25, 2025)
+- [x] Angle brackets <> syntax highlighting (July 25, 2025)
+- [x] Customizable colors via VSCode settings (July 25, 2025)
+- [x] Support for nested Markdown formatting (July 25, 2025)
+
+### Recently Added
+
+- [x] Interactive color picker - no more JSON editing! (July 26, 2025)
+- [x] Two-step color selection with visual previews (July 26, 2025)  
+- [x] Preset themes with professional color combinations (July 26, 2025)
+- [x] Quick setup command for instant configuration (July 26, 2025)
 
 ### Planned Features
 
 #### Simple Additions
 
-- [ ] Single quotes 'text' and double quotes "text" highlighting
-- [ ] Backticks `text` highlighting
-- [ ] Angle brackets <text> for HTML/XML-like syntax
 - [ ] International quote styles (German „quotes", Spanish ¿questions?, Japanese 「brackets」)
 
 #### Advanced Features
@@ -138,6 +189,8 @@ You can customize the colors by adding these rules to your VSCode settings:
 
 #### Configuration Options
 
+- [x] Interactive color customization with visual picker
+- [x] Preset theme selection  
 - [ ] Toggle highlighting on/off per bracket type
 - [ ] User-defined custom bracket pairs
 - [ ] Alternative highlighting styles (underline, background color, etc.)

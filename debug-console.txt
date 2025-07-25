@@ -1,0 +1,166 @@
+Cline environment: production
+extensionHostProcess.js:170
+Extension context was not provided to AuthService.getInstance, using default context
+extensionHostProcess.js:170
+Registered diff method: openDiff
+extensionHostProcess.js:170
+Registered diff method: getDocumentText
+extensionHostProcess.js:170
+Registered diff method: replaceText
+extensionHostProcess.js:170
+Registered diff method: truncateDocument
+extensionHostProcess.js:170
+Registered diff method: saveDocument
+extensionHostProcess.js:170
+Registered diff method: closeDiff
+extensionHostProcess.js:170
+Registered env method: clipboardWriteText
+extensionHostProcess.js:170
+Registered env method: clipboardReadText
+extensionHostProcess.js:170
+Registered env method: openExternal
+extensionHostProcess.js:170
+Registered watch method: subscribeToFile (streaming)
+extensionHostProcess.js:170
+Registered window method: showTextDocument
+extensionHostProcess.js:170
+Registered window method: showOpenDialogue
+extensionHostProcess.js:170
+Registered window method: showMessage
+extensionHostProcess.js:170
+Registered window method: showInputBox
+extensionHostProcess.js:170
+Registered window method: showSaveDialog
+extensionHostProcess.js:170
+Registered workspace method: getWorkspacePaths
+extensionHostProcess.js:170
+Registered workspace method: saveOpenDocumentIfDirty
+extensionHostProcess.js:170
+(node:49752) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `Code Helper (Plugin) --trace-deprecation ...` to show where the warning was created)
+extensionHostProcess.js:170
+[2025-07-26T02:02:53] LOG Cline extension activated
+extensionHostProcess.js:170
+Setting up vscode host providers...
+extensionHostProcess.js:170
+Legacy API configuration migration already completed, skipping...
+extensionHostProcess.js:170
+FileContextTracker: Processed 6 tasks, found 0 pending warnings, 0 orphaned, deleted 0, took 0ms
+extensionHostProcess.js:170
+[DEBUG] gRPC host call to host.WorkspaceService.getWorkspacePaths req:0f2af07c-4f52-4986-ab94-a6459adbff56
+extensionHostProcess.js:170
+[DEBUG] gRPC host call to host.WorkspaceService.getWorkspacePaths req:88c7be7c-8e1a-4d93-995c-23ac849ba896
+extensionHostProcess.js:170
+[DEBUG] gRPC host resp to host.WorkspaceService.getWorkspacePaths req:0f2af07c-4f52-4986-ab94-a6459adbff56
+extensionHostProcess.js:170
+[DEBUG] gRPC host resp to host.WorkspaceService.getWorkspacePaths req:88c7be7c-8e1a-4d93-995c-23ac849ba896
+extensionHostProcess.js:170
+[DEBUG] subscribing to mcp file changes
+extensionHostProcess.js:170
+[DEBUG] Streaming gRPC host call to host.WatchService.subscribeToFile req:6507f97d-9c03-4080-85ea-5c6c4de399d3
+extensionHostProcess.js:170
+[DEBUG] Registered request: 6507f97d-9c03-4080-85ea-5c6c4de399d3
+extensionHostProcess.js:170
+[DEBUG] Streaming gRPC host call to host.WatchService.subscribeToFile req:6507f97d-9c03-4080-85ea-5c6c4de399d3
+extensionHostProcess.js:170
+[DEBUG] Setting up file subscription for /Users/simonpeacocks/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json
+extensionHostProcess.js:170
+[DEBUG] Now watching file: /Users/simonpeacocks/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json
+extensionHostProcess.js:170
+[DEBUG] Registered request: 6507f97d-9c03-4080-85ea-5c6c4de399d3
+extensionHostProcess.js:170
+(node:49752) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+extensionHostProcess.js:170
+Created lock file at /Users/simonpeacocks/.claude/ide/31574.lock
+extensionHostProcess.js:170
+Set CLAUDE_CODE_SSE_PORT=31574 in terminal environment (in-memory)
+extensionHostProcess.js:170
+Set ENABLE_IDE_INTEGRATION=true in terminal environment (in-memory)
+extensionHostProcess.js:170
+Gemini CodeAssist version 2.43.0-insiders.0
+extensionHostProcess.js:170
+Client experimentation flags:  {enableQuickpickChat: true, enableApigeeGeminiChatTool: true, enableMcpServer: false, enableAzureModelConnection: false, enableLocalAgent: true, …}
+extensionHostProcess.js:170
+Failed to fetch experiment data, language client not set.
+extensionHostProcess.js:170
+Skipping updating LS experimentation flags since LS is not ready.
+extensionHostProcess.js:170
+Activating plugin Gemini Code Assist
+extensionHostProcess.js:170
+Activating plugin SDLC Agents
+extensionHostProcess.js:170
+Skipping activation of SDLC Agents, it is not enabled
+extensionHostProcess.js:170
+Activating plugin Code Documentation
+extensionHostProcess.js:170
+Activating plugin Local agent
+extensionHostProcess.js:170
+Activating plugin MCP Server
+extensionHostProcess.js:170
+Done activating plugin SDLC Agents, took 1.5543330000000424ms
+extensionHostProcess.js:170
+Done activating plugin Code Documentation, took 1.3161670000008598ms
+extensionHostProcess.js:170
+Done activating plugin Local agent, took 1.0594169999985752ms
+extensionHostProcess.js:170
+Done activating plugin MCP Server, took 1.004917000000205ms
+extensionHostProcess.js:170
+Get to <https://cloudcode-pa.googleapis.com/v1internal:loadCodeAssist> response: {"currentTier":{"id":"free-tier","name":"Gemini Code Assist for individuals","description":"Gemini-powered code suggestions and chat in multiple IDEs","privacyNotice":{"showNotice":true,"noticeText":"This notice and our Privacy Policy - <https://policies.google.com/privacy> - describe how Gemini Code Assist for individuals handles your data. Please read them carefully.\n\nWhen you use Gemini Code Assist for individuals, Google collects your prompts, related code, generated output, code edits, related feature usage information, and your feedback to provide, improve, and develop Google products and services and machine learning technologies.\n\nTo help with quality and improve our products (such as generative machine-learning models), human reviewers may read, annotate, and process the data collected above. We take steps to protect your privacy as part of this process. This includes disconnecting the data from your Google Account before reviewers see or annotate it, and storing those disconnected copies for up to 18 months. Please don't submit confidential information or any data you wouldn't want a reviewer to see or Google to use to improve our products, services, and machine-learning technologies.\n\nIf you don't want this data used to improve Google's machine learning models, you can opt out below."}},"allowedTiers":[{"id":"free-tier","name":"Gemini Code Assist for individuals","description":"Gemini-powered code suggestions and chat in multiple IDEs","privacyNotice":{"showNotice":true,"noticeText":"This notice and our Privacy Policy - https://policies.google.com/privacy - describe how Gemini Code Assist for individuals handles your data. Please read them carefully.\n\nWhen you use Gemini Code Assist for individuals, Google collects your prompts, related code, generated output, code edits, related feature usage information, and your feedback to provide, improve, and develop Google products and services and machine learning technologies.\n\nTo help with quality and improve our products (such as generative machine-learning models), human reviewers may read, annotate, and process the data collected above. We take steps to protect your privacy as part of this process. This includes disconnecting the data from your Google Account before reviewers see or annotate it, and storing those disconnected copies for up to 18 months. Please don't submit confidential information or any data you wouldn't want a reviewer to see or Google to use to improve our products, services, and machine-learning technologies.\n\nIf you don't want this data used to improve Google's machine learning models, you can opt out below."},"isDefault":true},{"id":"standard-tier","name":"Gemini Code Assist","description":"Unlimited coding assistant with the most powerful Gemini models","userDefinedCloudaicompanionProject":true,"privacyNotice":{}}],"cloudaicompanionProject":"capable-amulet-kq1hc","gcpManaged":false}, headers: {"x-cloudaicompanion-trace-id":["83bcf7c0296a1d8e"],"content-type":["application/json; charset=UTF-8"],"vary":["Origin, X-Origin, Referer"],"content-encoding":["gzip"],"date":["Fri, 25 Jul 2025 19:03:01 GMT"],"server":["ESF"],"x-xss-protection":["0"],"x-frame-options":["SAMEORIGIN"],"x-content-type-options":["nosniff"],"server-timing":["gfet5t7;dur=667, gfet4t7; dur=736"],"alt-svc":["h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"],"connection":["close"],"transfer-encoding":["chunked"]}
+extensionHostProcess.js:170
+LoadCodeAssistResponse: {"currentTier":{"id":"free-tier","name":"Gemini Code Assist for individuals","description":"Gemini-powered code suggestions and chat in multiple IDEs","privacyNotice":{"showNotice":true,"noticeText":"This notice and our Privacy Policy - <https://policies.google.com/privacy> - describe how Gemini Code Assist for individuals handles your data. Please read them carefully.\n\nWhen you use Gemini Code Assist for individuals, Google collects your prompts, related code, generated output, code edits, related feature usage information, and your feedback to provide, improve, and develop Google products and services and machine learning technologies.\n\nTo help with quality and improve our products (such as generative machine-learning models), human reviewers may read, annotate, and process the data collected above. We take steps to protect your privacy as part of this process. This includes disconnecting the data from your Google Account before reviewers see or annotate it, and storing those disconnected copies for up to 18 months. Please don't submit confidential information or any data you wouldn't want a reviewer to see or Google to use to improve our products, services, and machine-learning technologies.\n\nIf you don't want this data used to improve Google's machine learning models, you can opt out below."}},"allowedTiers":[{"id":"free-tier","name":"Gemini Code Assist for individuals","description":"Gemini-powered code suggestions and chat in multiple IDEs","privacyNotice":{"showNotice":true,"noticeText":"This notice and our Privacy Policy - https://policies.google.com/privacy - describe how Gemini Code Assist for individuals handles your data. Please read them carefully.\n\nWhen you use Gemini Code Assist for individuals, Google collects your prompts, related code, generated output, code edits, related feature usage information, and your feedback to provide, improve, and develop Google products and services and machine learning technologies.\n\nTo help with quality and improve our products (such as generative machine-learning models), human reviewers may read, annotate, and process the data collected above. We take steps to protect your privacy as part of this process. This includes disconnecting the data from your Google Account before reviewers see or annotate it, and storing those disconnected copies for up to 18 months. Please don't submit confidential information or any data you wouldn't want a reviewer to see or Google to use to improve our products, services, and machine-learning technologies.\n\nIf you don't want this data used to improve Google's machine learning models, you can opt out below."},"isDefault":true},{"id":"standard-tier","name":"Gemini Code Assist","description":"Unlimited coding assistant with the most powerful Gemini models","userDefinedCloudaicompanionProject":true,"privacyNotice":{}}],"cloudaicompanionProject":"capable-amulet-kq1hc","gcpManaged":false}
+extensionHostProcess.js:170
+service/healthcheck {projectID: 'capable-amulet-kq1hc'} Zh {a: false, b: null}
+extensionHostProcess.js:170
+Handling content exclusion file changes and firing event...
+extensionHostProcess.js:170
+Reading AI content exclusion file: .aiexclude
+extensionHostProcess.js:170
+Checking language server extraction from /Users/simonpeacocks/.vscode/extensions/google.geminicodeassist-2.43.0-insiders.0/cloudcode_cli.zip - darwin_arm64/cloudcode_cli
+extensionHostProcess.js:170
+AI content exclusion file setting is set, but the file is not found: .aiexclude
+extensionHostProcess.js:170
+Reading AI content exclusion file: .gitignore
+extensionHostProcess.js:170
+AI content exclusion file setting is set, but the file is not found: .gitignore
+extensionHostProcess.js:170
+Content exclusion file changes handled and event fired.
+extensionHostProcess.js:170
+AIExcludeProvider initialized.
+extensionHostProcess.js:170
+rejected promise not handled within 1 second: TypeError: Cannot read properties of undefined (reading 'hex')
+extensionHostProcess.js:170
+stack trace: TypeError: Cannot read properties of undefined (reading 'hex')
+    at applyRecommendedSettings (/Volumes/simons-enjoyment/GitHub/markdown-guillemets/src/extension.ts:306:34)
+    at showWelcomeMessage (/Volumes/simons-enjoyment/GitHub/markdown-guillemets/src/extension.ts:25:11)
+extensionHostProcess.js:170
+Using existing /Users/simonpeacocks/Library/Application Support/cloud-code/cloudcode_cli/cloudcode_cli/26d4ecb3/cloudcode_cli)
+extensionHostProcess.js:170
+Starting AIPP Language Client
+extensionHostProcess.js:170
+Language server state changed from Stopped to Starting
+extensionHostProcess.js:170
+Language server state changed from Starting to Running
+extensionHostProcess.js:170
+AIPP Language Client Started
+extensionHostProcess.js:170
+Created the Gemini Code Assist completion provider
+extensionHostProcess.js:170
+Language client state is Running
+extensionHostProcess.js:170
+Client experimentation flags:  {enableQuickpickChat: true, enableApigeeGeminiChatTool: true, enableMcpServer: false, enableAzureModelConnection: false, enableLocalAgent: true, …}
+extensionHostProcess.js:170
+Client experimentation flags:  {enableQuickpickChat: true, enableApigeeGeminiChatTool: true, enableMcpServer: false, enableAzureModelConnection: false, enableLocalAgent: true, …}
+extensionHostProcess.js:170
+Code path to binaries for darwin => /Applications/Visual Studio Code.app/Contents/Resources/app/bin
+extensionHostProcess.js:170
+Resetting path to /Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/simonpeacocks/.codeium/windsurf/bin:/Users/simonpeacocks/.codeium/windsurf/bin:/Users/simonpeacocks/.codeium/windsurf/bin:/Users/simonpeacocks/.bun/bin:/opt/homebrew/opt/ruby@3.1/bin:/Users/simonpeacocks/Library/pnpm:/Users/simonpeacocks/.local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/usr/local/share/dotnet:~/.dotnet/tools:/usr/local/go/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/simonpeacocks/.cargo/bin:/Users/simonpeacocks/.orbstack/bin:/Users/simonpeacocks/.lmstudio/bin
+extensionHostProcess.js:170
+running /Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin), /Users/simonpeacocks/.vscode/extensions/google.geminicodeassist-2.43.0-insiders.0/agent/agent.mjs with {"BUN_INSTALL":"/Users/simonpeacocks/.bun","COMMAND_MODE":"unix2003","GIT_DISCOVERY_ACROSS_FILESYSTEM":"1","HOME":"/Users/simonpeacocks","HOMEBREW_CELLAR":"/opt/homebrew/Cellar","HOMEBREW_PREFIX":"/opt/homebrew","HOMEBREW_REPOSITORY":"/opt/homebrew","INFOPATH":"/opt/homebrew/share/info:/opt/homebrew/share/info:","LESS":"-R","LOGNAME":"simonpeacocks","LSCOLORS":"Gxfxcxdxbxegedabagacad","LS_COLORS":"di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43","MallocNanoZone":"0","NVM_CD_FLAGS":"-q","NVM_DIR":"/Users/simonpeacocks/.nvm","OLDPWD":"/","ORIGINAL_XDG_CURRENT_DESKTOP":"undefined","PAGER":"less","PATH":"/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/simonpeacocks/.codeium/windsurf/bin:/Users/simonpeacocks/.codeium/windsurf/bin:/Users/simonpeacocks/.codeium/windsurf/bin:/Users/simonpeacocks/.bun/bin:/opt/homebrew/opt/ruby@3.1/bin:/Users/simonpeacocks/Library/pnpm:/Users/simonpeacocks/.local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/usr/local/share/dotnet:~/.dotnet/tools:/usr/local/go/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/simonpeacocks/.cargo/bin:/Users/simonpeacocks/.orbstack/bin:/Users/simonpeacocks/.lmstudio/bin","PNPM_HOME":"/Users/simonpeacocks/Library/pnpm","PWD":"/","SHELL":"/bin/zsh","SHLVL":"0","SSH_AUTH_SOCK":"/private/tmp/com.apple.launchd.T92qFDGn3G/Listeners","TMPDIR":"/var/folders/2d/_jpyvk6n28g4ql4f3rssxlq00000gn/T/","USER":"simonpeacocks","VSCODE_CRASH_REPORTER_PROCESS_TYPE":"extensionHost","VSCODE_CWD":"/","VSCODE_ESM_ENTRYPOINT":"vs/workbench/api/node/extensionHostProcess","VSCODE_HANDLES_UNCAUGHT_ERRORS":"true","VSCODE_IPC_HOOK":"/Users/simonpeacocks/Library/Application Support/Code/1.10-main.sock","VSCODE_NLS_CONFIG":"{\"userLocale\":\"en-us\",\"osLocale\":\"en-us\",\"resolvedLanguage\":\"en\",\"defaultMessagesFile\":\"/Applications/Visual Studio Code.app/Contents/Resources/app/out/nls.messages.json\",\"locale\":\"en-us\",\"availableLanguages\":{}}","VSCODE_PID":"4944","XPC_FLAGS":"0x0","XPC_SERVICE_NAME":"application.com.microsoft.VSCode.316099354.316099360","ZSH":"/Users/simonpeacocks/.oh-my-zsh","_":"/Applications/Visual Studio Code.app/Contents/MacOS/Electron","__CFBundleIdentifier":"com.microsoft.VSCode","__CF_USER_TEXT_ENCODING":"0x1F5:0x0:0x0","ELECTRON_RUN_AS_NODE":"1","VSCODE_L10N_BUNDLE_LOCATION":"","APPLICATION_INSIGHTS_NO_STATSBEAT":"true","APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL":"1","APPLICATIONINSIGHTS_CONFIGURATION_CONTENT":"{}","GEMINI_YOLO_MODE":"true ","DEBUG":"false","SURFACE":"VSCode","USE_CCPA":"1","GOOGLE_APPLICATION_CREDENTIALS":"/Users/simonpeacocks/Library/Application Support/google-vscode-extension/auth/application_default_credentials.json"}
+extensionHostProcess.js:170
+service/healthcheck {projectID: 'capable-amulet-kq1hc'} Zh {a: false, b: null}
+extensionHostProcess.js:170
+Successfully notified LS of local agent server start
+extensionHostProcess.js:170
+Done activating plugin Gemini Code Assist, took 6574.611541ms
+extensionHostProcess.js:170
+Not installing extension version 2.43.0-insiders.0 because the currently installed version 2.43.0-insiders.0 is newer or the same.
