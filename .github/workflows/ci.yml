@@ -24,8 +24,11 @@ jobs:
     - name: Install dependencies
       run: bun install
     
-    - name: Run Biome check
-      run: bunx biome check
+    - name: Compile TypeScript
+      run: bunx tsc -p ./
+    
+    - name: Run ultracite lint check
+      run: bunx ultracite lint
     
     - name: Run markdownlint-cli2
       run: bunx markdownlint-cli2 "**/*.md" "#node_modules"
