@@ -79,7 +79,6 @@
       "bunx ultracite lint"
     ],
     "*.{md,mdx}": [
-      "bunx ultracite format",
       "bunx markdownlint-cli2"
     ]
   }
