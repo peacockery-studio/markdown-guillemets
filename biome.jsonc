@@ -15,7 +15,8 @@
       },
       "suspicious": {
         "noExplicitAny": "off",
-        "noEmptyBlockStatements": "off"
+        "noEmptyBlockStatements": "off",
+        "noConsole": "off"
       },
       "nursery": {
         "noAwaitInLoop": "off",
