@@ -37,11 +37,6 @@
         "command": "markdown-guillemets.customizeColors",
         "title": "Customize Colors",
         "category": "Markdown Guillemets"
-      },
-      {
-        "command": "markdown-guillemets.quickSetup",
-        "title": "Quick Setup",
-        "category": "Markdown Guillemets"
       }
     ],
     "grammars": [

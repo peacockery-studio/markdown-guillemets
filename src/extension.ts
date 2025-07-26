@@ -6,7 +6,6 @@ export function activate(context: vscode.ExtensionContext) {
     console.log('Markdown Guillemets extension is now active!');
     console.log('Extension context:', context.extensionPath);
 
-    // Register color customization commands
     registerColorCommands(context);
     console.log('Commands registered successfully');
   } catch (error) {
@@ -18,55 +17,94 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 function registerColorCommands(context: vscode.ExtensionContext) {
-  // Main color customization command
   const customizeColors = vscode.commands.registerCommand(
     'markdown-guillemets.customizeColors',
     async () => {
       const options = [
-        'Guillemets Symbol Color (« »)',
-        'Guillemets Text Color',
-        'Square Brackets Symbol Color ([ ])',
-        'Square Brackets Text Color',
-        'Parentheses Symbol Color (( ))',
-        'Parentheses Text Color',
-        'Curly Braces Symbol Color ({ })',
-        'Curly Braces Text Color',
-        'Angle Brackets Symbol Color (< >)',
-        'Angle Brackets Text Color',
-        'Apply Preset Theme',
-        'Reset All Colors',
+        {
+          label: 'Guillemets Symbol Color                 ',
+          description: '« »',
+        },
+        {
+          label: 'Guillemets Text Color                       ',
+          description: '«content»',
+        },
+        {
+          label: 'Square Brackets Symbol Color       ',
+          description: '[ ]',
+        },
+        {
+          label: 'Square Brackets Text Color             ',
+          description: '[content]',
+        },
+        {
+          label: 'Parentheses Symbol Color              ',
+          description: '( )',
+        },
+        {
+          label: 'Parentheses Text Color                    ',
+          description: '(content)',
+        },
+        {
+          label: 'Curly Braces Symbol Color              ',
+          description: '{ }',
+        },
+        {
+          label: 'Curly Braces Text Color                   ',
+          description: '{content}',
+        },
+        {
+          label: 'Angle Brackets Symbol Color          ',
+          description: '< >',
+        },
+        {
+          label: 'Angle Brackets Text Color               ',
+          description: '<content>',
+        },
+
+        { label: '', kind: vscode.QuickPickItemKind.Separator },
+
+        {
+          label: 'Apply Preset Theme             ',
+          description:
+            'Ocean Breeze • Forest Glow • Sunset Vibes • Royal Purple • Professional',
+        },
+        {
+          label: 'Reset All Colors                    ',
+          description: 'Restore defaults',
+        },
       ];
 
       const selection = await vscode.window.showQuickPick(options, {
         placeHolder: 'Choose what to customize',
       });
 
-      switch (selection) {
-        case 'Guillemets Symbol Color (« »)':
+      switch (selection?.label?.trim()) {
+        case 'Guillemets Symbol Color':
           await customizeTokenColor('guillemets-symbol');
           break;
         case 'Guillemets Text Color':
           await customizeTokenColor('guillemets-text');
           break;
-        case 'Square Brackets Symbol Color ([ ])':
+        case 'Square Brackets Symbol Color':
           await customizeTokenColor('brackets-symbol');
           break;
         case 'Square Brackets Text Color':
           await customizeTokenColor('brackets-text');
           break;
-        case 'Parentheses Symbol Color (( ))':
+        case 'Parentheses Symbol Color':
           await customizeTokenColor('parentheses-symbol');
           break;
         case 'Parentheses Text Color':
           await customizeTokenColor('parentheses-text');
           break;
-        case 'Curly Braces Symbol Color ({ })':
+        case 'Curly Braces Symbol Color':
           await customizeTokenColor('braces-symbol');
           break;
         case 'Curly Braces Text Color':
           await customizeTokenColor('braces-text');
           break;
-        case 'Angle Brackets Symbol Color (< >)':
+        case 'Angle Brackets Symbol Color':
           await customizeTokenColor('angle-symbol');
           break;
         case 'Angle Brackets Text Color':
@@ -82,17 +120,7 @@ function registerColorCommands(context: vscode.ExtensionContext) {
     }
   );
 
-  // Quick setup command (now applies the same colors as configurationDefaults)
-  const quickSetup = vscode.commands.registerCommand(
-    'markdown-guillemets.quickSetup',
-    () => {
-      vscode.window.showInformationMessage(
-        'Colors are now applied automatically! Use "Customize Colors" to change them.'
-      );
-    }
-  );
-
-  context.subscriptions.push(customizeColors, quickSetup);
+  context.subscriptions.push(customizeColors);
 }
 
 async function customizeTokenColor(tokenType: string) {
@@ -109,7 +137,6 @@ async function customizeTokenColor(tokenType: string) {
 async function showTwoStepColorPicker(
   tokenType: string
 ): Promise<{ hex: string; name: string } | undefined> {
-  // Step 1: Select color family
   const colorFamilies = [
     {
       label: '🔴 Red',
@@ -167,13 +194,16 @@ async function showTwoStepColorPicker(
     return;
   }
 
-  // Step 2: Select shade from the chosen family
   const familyColors = colors[selectedFamily.family as keyof typeof colors];
   if (!Array.isArray(familyColors)) {
     return;
   }
 
-  const shadeOptions = familyColors.map((color) => {
+  const filteredColors = familyColors.filter((color) =>
+    [300, 500, 700].includes(color.scale)
+  );
+
+  const shadeOptions = filteredColors.map((color) => {
     const intensity = getIntensityDescription(color.scale);
     const preview = getColorPreview(color.hex, color.scale);
 
@@ -197,50 +227,29 @@ async function showTwoStepColorPicker(
 }
 
 function getIntensityDescription(scale: number): string {
-  if (scale <= 100) {
-    return 'Very Light';
-  }
-  if (scale <= 300) {
+  if (scale === 300) {
     return 'Light';
   }
-  if (scale <= 500) {
+  if (scale === 500) {
     return 'Medium';
   }
-  if (scale <= 700) {
+  if (scale === 700) {
     return 'Dark';
   }
-  return 'Very Dark';
+  return 'Unknown';
 }
 
 function getColorPreview(_hex: string, scale: number): string {
-  // Create a visual representation of the color intensity
-
-  // Use different characters based on lightness
-  if (scale <= 100) {
-    return '○○○○○'; // Very light - hollow circles
+  if (scale === 300) {
+    return '●●○○○';
   }
-  if (scale <= 200) {
-    return '●○○○○'; // Light
+  if (scale === 500) {
+    return '●●●●○';
   }
-  if (scale <= 300) {
-    return '●●○○○'; // Light-medium
+  if (scale === 700) {
+    return '●●●●●';
   }
-  if (scale <= 400) {
-    return '●●●○○'; // Medium-light
-  }
-  if (scale <= 500) {
-    return '●●●●○'; // Medium
-  }
-  if (scale <= 600) {
-    return '●●●●●'; // Medium-dark
-  }
-  if (scale <= 700) {
-    return '●●●●●'; // Dark
-  }
-  if (scale <= 800) {
-    return '●●●●●'; // Very dark
-  }
-  return '●●●●●'; // Darkest
+  return '●●●○○';
 }
 
 async function showPresetThemes() {
