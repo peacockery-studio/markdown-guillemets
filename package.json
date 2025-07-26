@@ -55,7 +55,43 @@
           "meta.embedded.block.guillemets": "markdown"
         }
       }
-    ]
+    ],
+    "configurationDefaults": {
+      "editor.tokenColorCustomizations": {
+        "textMateRules": [
+          {
+            "scope": "punctuation.definition.guillemets.markdown",
+            "settings": {
+              "foreground": "#4ecdc4"
+            }
+          },
+          {
+            "scope": "punctuation.definition.square.markdown",
+            "settings": {
+              "foreground": "#ff6b6b"
+            }
+          },
+          {
+            "scope": "punctuation.definition.round.markdown",
+            "settings": {
+              "foreground": "#feca57"
+            }
+          },
+          {
+            "scope": "punctuation.definition.curly.markdown",
+            "settings": {
+              "foreground": "#ff9ff3"
+            }
+          },
+          {
+            "scope": "punctuation.definition.angle.markdown",
+            "settings": {
+              "foreground": "#54a0ff"
+            }
+          }
+        ]
+      }
+    }
   },
   "devDependencies": {
     "@biomejs/biome": "2.1.2",

@@ -6,14 +6,6 @@ export function activate(context: vscode.ExtensionContext) {
     console.log('Markdown Guillemets extension is now active!');
     console.log('Extension context:', context.extensionPath);
 
-    // Check if this is first activation
-    const hasShownWelcome = context.globalState.get('hasShownWelcome', false);
-    console.log('Has shown welcome:', hasShownWelcome);
-
-    if (!hasShownWelcome) {
-      showWelcomeMessage(context);
-    }
-
     // Register color customization commands
     registerColorCommands(context);
     console.log('Commands registered successfully');
@@ -25,34 +17,24 @@ export function activate(context: vscode.ExtensionContext) {
   }
 }
 
-async function showWelcomeMessage(context: vscode.ExtensionContext) {
-  const result = await vscode.window.showInformationMessage(
-    'Welcome to Markdown French Guillemets! Would you like to apply recommended color settings?',
-    'Apply Settings',
-    'Skip',
-    "Don't Show Again"
-  );
-
-  if (result === 'Apply Settings') {
-    await applyRecommendedSettings();
-  } else if (result === "Don't Show Again") {
-    context.globalState.update('hasShownWelcome', true);
-  }
-}
-
 function registerColorCommands(context: vscode.ExtensionContext) {
   // Main color customization command
   const customizeColors = vscode.commands.registerCommand(
     'markdown-guillemets.customizeColors',
     async () => {
       const options = [
-        'Guillemets Color',
-        'Brackets Color',
-        'Parentheses Color',
-        'Braces Color',
-        'Angle Brackets Color',
+        'Guillemets Symbol Color (« »)',
+        'Guillemets Text Color',
+        'Square Brackets Symbol Color ([ ])',
+        'Square Brackets Text Color',
+        'Parentheses Symbol Color (( ))',
+        'Parentheses Text Color',
+        'Curly Braces Symbol Color ({ })',
+        'Curly Braces Text Color',
+        'Angle Brackets Symbol Color (< >)',
+        'Angle Brackets Text Color',
         'Apply Preset Theme',
-        'Reset to Defaults',
+        'Reset All Colors',
       ];
 
       const selection = await vscode.window.showQuickPick(options, {
@@ -60,36 +42,53 @@ function registerColorCommands(context: vscode.ExtensionContext) {
       });
 
       switch (selection) {
-        case 'Guillemets Color':
-          await customizeTokenColor('guillemets');
+        case 'Guillemets Symbol Color (« »)':
+          await customizeTokenColor('guillemets-symbol');
           break;
-        case 'Brackets Color':
-          await customizeTokenColor('brackets');
+        case 'Guillemets Text Color':
+          await customizeTokenColor('guillemets-text');
           break;
-        case 'Parentheses Color':
-          await customizeTokenColor('parentheses');
+        case 'Square Brackets Symbol Color ([ ])':
+          await customizeTokenColor('brackets-symbol');
           break;
-        case 'Braces Color':
-          await customizeTokenColor('braces');
+        case 'Square Brackets Text Color':
+          await customizeTokenColor('brackets-text');
           break;
-        case 'Angle Brackets Color':
-          await customizeTokenColor('angle');
+        case 'Parentheses Symbol Color (( ))':
+          await customizeTokenColor('parentheses-symbol');
+          break;
+        case 'Parentheses Text Color':
+          await customizeTokenColor('parentheses-text');
+          break;
+        case 'Curly Braces Symbol Color ({ })':
+          await customizeTokenColor('braces-symbol');
+          break;
+        case 'Curly Braces Text Color':
+          await customizeTokenColor('braces-text');
+          break;
+        case 'Angle Brackets Symbol Color (< >)':
+          await customizeTokenColor('angle-symbol');
+          break;
+        case 'Angle Brackets Text Color':
+          await customizeTokenColor('angle-text');
           break;
         case 'Apply Preset Theme':
           await showPresetThemes();
           break;
-        case 'Reset to Defaults':
+        case 'Reset All Colors':
           await resetToDefaults();
           break;
       }
     }
   );
 
-  // Quick setup command
+  // Quick setup command (now applies the same colors as configurationDefaults)
   const quickSetup = vscode.commands.registerCommand(
     'markdown-guillemets.quickSetup',
-    async () => {
-      await applyRecommendedSettings();
+    () => {
+      vscode.window.showInformationMessage(
+        'Colors are now applied automatically! Use "Customize Colors" to change them.'
+      );
     }
   );
 
@@ -215,8 +214,6 @@ function getIntensityDescription(scale: number): string {
 
 function getColorPreview(_hex: string, scale: number): string {
   // Create a visual representation of the color intensity
-  const _intensity = Math.floor(scale / 100);
-  const _colorChar = '●';
 
   // Use different characters based on lightness
   if (scale <= 100) {
@@ -248,40 +245,77 @@ function getColorPreview(_hex: string, scale: number): string {
 
 async function showPresetThemes() {
   const themes: Record<string, Record<string, string>> = {
+    'Default (Recommended)': {
+      'guillemets-symbol': getColorByScale(colors.blue, 500),
+      'guillemets-text': getColorByScale(colors.blue, 300),
+      'brackets-symbol': getColorByScale(colors.emerald, 500),
+      'brackets-text': getColorByScale(colors.emerald, 300),
+      'parentheses-symbol': getColorByScale(colors.amber, 500),
+      'parentheses-text': getColorByScale(colors.amber, 300),
+      'braces-symbol': getColorByScale(colors.rose, 500),
+      'braces-text': getColorByScale(colors.rose, 300),
+      'angle-symbol': getColorByScale(colors.purple, 500),
+      'angle-text': getColorByScale(colors.purple, 300),
+    },
     'Ocean Breeze': {
-      guillemets: getColorByScale(colors.blue, 500), // Blue 500
-      brackets: getColorByScale(colors.cyan, 400), // Cyan 400
-      parentheses: getColorByScale(colors.teal, 500), // Teal 500
-      braces: getColorByScale(colors.sky, 600), // Sky 600
-      angle: getColorByScale(colors.indigo, 500), // Indigo 500
+      'guillemets-symbol': getColorByScale(colors.blue, 500),
+      'guillemets-text': getColorByScale(colors.blue, 300),
+      'brackets-symbol': getColorByScale(colors.cyan, 400),
+      'brackets-text': getColorByScale(colors.cyan, 200),
+      'parentheses-symbol': getColorByScale(colors.teal, 500),
+      'parentheses-text': getColorByScale(colors.teal, 300),
+      'braces-symbol': getColorByScale(colors.sky, 600),
+      'braces-text': getColorByScale(colors.sky, 400),
+      'angle-symbol': getColorByScale(colors.indigo, 500),
+      'angle-text': getColorByScale(colors.indigo, 300),
     },
     'Forest Glow': {
-      guillemets: getColorByScale(colors.emerald, 500), // Emerald 500
-      brackets: getColorByScale(colors.green, 400), // Green 400
-      parentheses: getColorByScale(colors.lime, 500), // Lime 500
-      braces: getColorByScale(colors.teal, 600), // Teal 600
-      angle: getColorByScale(colors.cyan, 500), // Cyan 500
+      'guillemets-symbol': getColorByScale(colors.emerald, 500),
+      'guillemets-text': getColorByScale(colors.emerald, 300),
+      'brackets-symbol': getColorByScale(colors.green, 400),
+      'brackets-text': getColorByScale(colors.green, 200),
+      'parentheses-symbol': getColorByScale(colors.lime, 500),
+      'parentheses-text': getColorByScale(colors.lime, 300),
+      'braces-symbol': getColorByScale(colors.teal, 600),
+      'braces-text': getColorByScale(colors.teal, 400),
+      'angle-symbol': getColorByScale(colors.cyan, 500),
+      'angle-text': getColorByScale(colors.cyan, 300),
     },
     'Sunset Vibes': {
-      guillemets: getColorByScale(colors.orange, 500), // Orange 500
-      brackets: getColorByScale(colors.amber, 400), // Amber 400
-      parentheses: getColorByScale(colors.yellow, 500), // Yellow 500
-      braces: getColorByScale(colors.red, 500), // Red 500
-      angle: getColorByScale(colors.pink, 500), // Pink 500
+      'guillemets-symbol': getColorByScale(colors.orange, 500),
+      'guillemets-text': getColorByScale(colors.orange, 300),
+      'brackets-symbol': getColorByScale(colors.amber, 400),
+      'brackets-text': getColorByScale(colors.amber, 200),
+      'parentheses-symbol': getColorByScale(colors.yellow, 500),
+      'parentheses-text': getColorByScale(colors.yellow, 300),
+      'braces-symbol': getColorByScale(colors.red, 500),
+      'braces-text': getColorByScale(colors.red, 300),
+      'angle-symbol': getColorByScale(colors.pink, 500),
+      'angle-text': getColorByScale(colors.pink, 300),
     },
     'Royal Purple': {
-      guillemets: getColorByScale(colors.purple, 500), // Purple 500
-      brackets: getColorByScale(colors.violet, 400), // Violet 400
-      parentheses: getColorByScale(colors.fuchsia, 500), // Fuchsia 500
-      braces: getColorByScale(colors.pink, 600), // Pink 600
-      angle: getColorByScale(colors.indigo, 600), // Indigo 600
+      'guillemets-symbol': getColorByScale(colors.purple, 500),
+      'guillemets-text': getColorByScale(colors.purple, 300),
+      'brackets-symbol': getColorByScale(colors.violet, 400),
+      'brackets-text': getColorByScale(colors.violet, 200),
+      'parentheses-symbol': getColorByScale(colors.fuchsia, 500),
+      'parentheses-text': getColorByScale(colors.fuchsia, 300),
+      'braces-symbol': getColorByScale(colors.pink, 600),
+      'braces-text': getColorByScale(colors.pink, 400),
+      'angle-symbol': getColorByScale(colors.indigo, 600),
+      'angle-text': getColorByScale(colors.indigo, 400),
     },
     Professional: {
-      guillemets: getColorByScale(colors.slate, 600), // Slate 600
-      brackets: getColorByScale(colors.gray, 500), // Gray 500
-      parentheses: getColorByScale(colors.zinc, 600), // Zinc 600
-      braces: getColorByScale(colors.neutral, 700), // Neutral 700
-      angle: getColorByScale(colors.stone, 600), // Stone 600
+      'guillemets-symbol': getColorByScale(colors.slate, 600),
+      'guillemets-text': getColorByScale(colors.slate, 400),
+      'brackets-symbol': getColorByScale(colors.gray, 500),
+      'brackets-text': getColorByScale(colors.gray, 300),
+      'parentheses-symbol': getColorByScale(colors.zinc, 600),
+      'parentheses-text': getColorByScale(colors.zinc, 400),
+      'braces-symbol': getColorByScale(colors.neutral, 700),
+      'braces-text': getColorByScale(colors.neutral, 500),
+      'angle-symbol': getColorByScale(colors.stone, 600),
+      'angle-text': getColorByScale(colors.stone, 400),
     },
   };
 
@@ -302,31 +336,6 @@ async function showPresetThemes() {
   }
 }
 
-function _getCurrentTokenColor(tokenType: string): string {
-  const config = vscode.workspace.getConfiguration();
-  const tokenColors = config.get('editor.tokenColorCustomizations') as any;
-
-  const scopeMap: Record<string, string> = {
-    guillemets: 'punctuation.definition.guillemets.markdown',
-    'guillemets-text': 'string.quoted.guillemets.markdown',
-    brackets: 'punctuation.definition.square.markdown',
-    parentheses: 'punctuation.definition.round.markdown',
-    braces: 'punctuation.definition.curly.markdown',
-    angle: 'punctuation.definition.angle.markdown',
-  };
-  const scope = scopeMap[tokenType];
-  if (tokenColors?.textMateRules) {
-    const rule = tokenColors.textMateRules.find(
-      (rule: any) =>
-        rule.scope === scope ||
-        (Array.isArray(rule.scope) && rule.scope.includes(scope))
-    );
-    return rule?.settings?.foreground || '#FFFFFF';
-  }
-
-  return '#FFFFFF';
-}
-
 async function updateTokenColor(tokenType: string, color: string) {
   try {
     console.log(`Updating token color for ${tokenType} to ${color}`);
@@ -341,12 +350,16 @@ async function updateTokenColor(tokenType: string, color: string) {
     }
 
     const scopeMap: Record<string, string> = {
-      guillemets: 'punctuation.definition.guillemets.markdown',
+      'guillemets-symbol': 'punctuation.definition.guillemets.markdown',
       'guillemets-text': 'string.quoted.guillemets.markdown',
-      brackets: 'punctuation.definition.square.markdown',
-      parentheses: 'punctuation.definition.round.markdown',
-      braces: 'punctuation.definition.curly.markdown',
-      angle: 'punctuation.definition.angle.markdown',
+      'brackets-symbol': 'punctuation.definition.square.markdown',
+      'brackets-text': 'string.quoted.square.markdown',
+      'parentheses-symbol': 'punctuation.definition.round.markdown',
+      'parentheses-text': 'string.quoted.round.markdown',
+      'braces-symbol': 'punctuation.definition.curly.markdown',
+      'braces-text': 'string.quoted.curly.markdown',
+      'angle-symbol': 'punctuation.definition.angle.markdown',
+      'angle-text': 'string.quoted.angle.markdown',
     };
 
     const scope = scopeMap[tokenType];
@@ -394,20 +407,6 @@ async function applyTheme(theme: Record<string, string>) {
   }
 }
 
-async function applyRecommendedSettings() {
-  const recommendedTheme = {
-    guillemets: getColorByScale(colors.blue, 500), // Professional blue
-    'guillemets-text': getColorByScale(colors.blue, 500), // Same blue for text
-    brackets: getColorByScale(colors.emerald, 500), // Success green
-    parentheses: getColorByScale(colors.amber, 500), // Warning amber
-    braces: getColorByScale(colors.rose, 500), // Accent rose
-    angle: getColorByScale(colors.purple, 500), // Creative purple
-  };
-
-  await applyTheme(recommendedTheme);
-  vscode.window.showInformationMessage('Applied recommended color settings!');
-}
-
 function getColorByScale(colorArray: any[], scale: number): string {
   const colorObj = colorArray.find((c) => c.scale === scale);
   return colorObj?.hex || '#FFFFFF';
@@ -423,9 +422,13 @@ async function resetToDefaults() {
       'punctuation.definition.guillemets.markdown',
       'string.quoted.guillemets.markdown',
       'punctuation.definition.square.markdown',
+      'string.quoted.square.markdown',
       'punctuation.definition.round.markdown',
+      'string.quoted.round.markdown',
       'punctuation.definition.curly.markdown',
+      'string.quoted.curly.markdown',
       'punctuation.definition.angle.markdown',
+      'string.quoted.angle.markdown',
     ];
 
     tokenColors.textMateRules = tokenColors.textMateRules.filter(
