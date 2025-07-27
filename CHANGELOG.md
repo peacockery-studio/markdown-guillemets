@@ -4,6 +4,22 @@ All notable changes to the "markdown-guillemets" extension will be documented in
 
 ## [Unreleased]
 
+### Fixed
+- **formatOnSave race condition** - Fixed conflict with code formatters (Biome.js, Prettier) during preset theme application by temporarily disabling formatOnSave
+- **Inline code scope correction** - Updated scope from `markup.inline.raw.markdown` to official `markup.inline.raw.string.markdown` for proper VS Code compatibility
+
+## [0.1.2] - 2025-07-27
+
+### Fixed
+- **Release workflow** - Updated GitHub Actions to use modern `softprops/action-gh-release@v2` for reliable VSIX publishing
+
+## [0.1.1] - 2025-07-27
+
+### Fixed
+- **Release CI configuration** - Fixed automated release workflow for proper marketplace publishing
+
+## [0.1.0] - 2025-07-27
+
 ### Added
 - **Colorblind-friendly preset theme** - High contrast color combinations that work for all types of color vision, avoiding problematic red/green combinations
 - **Comprehensive documentation** - Modernized README with feature-first approach, extensive usage examples, and two-tier customization guide
@@ -29,7 +45,6 @@ All notable changes to the "markdown-guillemets" extension will be documented in
 - **Better theme compatibility** - Colors work seamlessly across light and dark themes
 - **Performance optimizations** - Cleaner code with removed unused functions and variables
 - **TextMate grammar enhancement** - All bracket patterns now include markdown formatting support via VS Code's built-in grammar
-- **Color scope corrections** - Fixed inline code scope from `markup.inline.raw.string.markdown` to `markup.inline.raw.markdown`
 
 ### Removed
 - **Release script** - Removed redundant `release.sh` in favor of automated GitHub Actions workflow

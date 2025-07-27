@@ -99,7 +99,7 @@
             }
           },
           {
-            "scope": "markup.inline.raw.markdown",
+            "scope": "markup.inline.raw.string.markdown",
             "settings": {
               "foreground": "#10b981"
             }

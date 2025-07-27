@@ -62,15 +62,15 @@ function registerColorCommands(context: vscode.ExtensionContext) {
           description: '<content>',
         },
         {
-          label: 'Bold Text Color                         ',
+          label: 'Bold Text Color                                ',
           description: '**content**',
         },
         {
-          label: 'Italic Text Color                       ',
+          label: 'Italic Text Color                                ',
           description: '*content*',
         },
         {
-          label: 'Code Text Color                         ',
+          label: 'Code Text Color                              ',
           description: '`content`',
         },
         {
@@ -440,7 +440,7 @@ async function updateTokenColor(tokenType: string, color: string) {
       'angle-text': 'string.quoted.angle.markdown',
       'bold-text': 'markup.bold.markdown',
       'italic-text': 'markup.italic.markdown',
-      'code-text': 'markup.inline.raw.markdown',
+      'code-text': 'markup.inline.raw.string.markdown',
       'strikethrough-text': 'markup.strikethrough.markdown',
     };
 
@@ -484,8 +484,32 @@ async function updateTokenColor(tokenType: string, color: string) {
 }
 
 async function applyTheme(theme: Record<string, string>) {
-  for (const [tokenType, color] of Object.entries(theme)) {
-    await updateTokenColor(tokenType, color);
+  const config = vscode.workspace.getConfiguration();
+  const originalFormatOnSave = config.get('editor.formatOnSave');
+
+  try {
+    // Disable formatOnSave to prevent race condition
+    if (originalFormatOnSave) {
+      await config.update(
+        'editor.formatOnSave',
+        false,
+        vscode.ConfigurationTarget.Global
+      );
+    }
+
+    // Apply all color changes sequentially
+    for (const [tokenType, color] of Object.entries(theme)) {
+      await updateTokenColor(tokenType, color);
+    }
+  } finally {
+    // Always restore formatOnSave, even if something fails
+    if (originalFormatOnSave) {
+      await config.update(
+        'editor.formatOnSave',
+        originalFormatOnSave,
+        vscode.ConfigurationTarget.Global
+      );
+    }
   }
 }
 
@@ -513,7 +537,7 @@ async function resetToDefaults() {
       'string.quoted.angle.markdown',
       'markup.bold.markdown',
       'markup.italic.markdown',
-      'markup.inline.raw.markdown',
+      'markup.inline.raw.string.markdown',
       'markup.strikethrough.markdown',
     ];
 
