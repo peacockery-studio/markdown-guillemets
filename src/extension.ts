@@ -61,6 +61,22 @@ function registerColorCommands(context: vscode.ExtensionContext) {
           label: 'Angle Brackets Text Color               ',
           description: '<content>',
         },
+        {
+          label: 'Bold Text Color                         ',
+          description: '**content**',
+        },
+        {
+          label: 'Italic Text Color                       ',
+          description: '*content*',
+        },
+        {
+          label: 'Code Text Color                         ',
+          description: '`content`',
+        },
+        {
+          label: 'Strikethrough Text Color                ',
+          description: '~~content~~',
+        },
 
         { label: '', kind: vscode.QuickPickItemKind.Separator },
 
@@ -110,6 +126,19 @@ function registerColorCommands(context: vscode.ExtensionContext) {
         case 'Angle Brackets Text Color':
           await customizeTokenColor('angle-text');
           break;
+        case 'Bold Text Color':
+          await customizeTokenColor('bold-text');
+          break;
+        case 'Italic Text Color':
+          await customizeTokenColor('italic-text');
+          break;
+        case 'Code Text Color':
+          await customizeTokenColor('code-text');
+          break;
+        case 'Strikethrough Text Color':
+          await customizeTokenColor('strikethrough-text');
+          break;
+
         case 'Apply Preset Theme':
           await showPresetThemes();
           break;
@@ -265,6 +294,10 @@ async function showPresetThemes() {
       'braces-text': getColorByScale(colors.rose, 300),
       'angle-symbol': getColorByScale(colors.purple, 500),
       'angle-text': getColorByScale(colors.purple, 300),
+      'bold-text': getColorByScale(colors.orange, 500),
+      'italic-text': getColorByScale(colors.purple, 500),
+      'code-text': getColorByScale(colors.green, 500),
+      'strikethrough-text': getColorByScale(colors.gray, 500),
     },
     'Ocean Breeze': {
       'guillemets-symbol': getColorByScale(colors.blue, 500),
@@ -277,6 +310,10 @@ async function showPresetThemes() {
       'braces-text': getColorByScale(colors.sky, 400),
       'angle-symbol': getColorByScale(colors.indigo, 500),
       'angle-text': getColorByScale(colors.indigo, 300),
+      'bold-text': getColorByScale(colors.violet, 500),
+      'italic-text': getColorByScale(colors.purple, 500),
+      'code-text': getColorByScale(colors.teal, 500),
+      'strikethrough-text': getColorByScale(colors.slate, 500),
     },
     'Forest Glow': {
       'guillemets-symbol': getColorByScale(colors.emerald, 500),
@@ -289,6 +326,10 @@ async function showPresetThemes() {
       'braces-text': getColorByScale(colors.teal, 400),
       'angle-symbol': getColorByScale(colors.cyan, 500),
       'angle-text': getColorByScale(colors.cyan, 300),
+      'bold-text': getColorByScale(colors.emerald, 700),
+      'italic-text': getColorByScale(colors.green, 500),
+      'code-text': getColorByScale(colors.lime, 500),
+      'strikethrough-text': getColorByScale(colors.slate, 500),
     },
     'Sunset Vibes': {
       'guillemets-symbol': getColorByScale(colors.orange, 500),
@@ -301,6 +342,10 @@ async function showPresetThemes() {
       'braces-text': getColorByScale(colors.red, 300),
       'angle-symbol': getColorByScale(colors.pink, 500),
       'angle-text': getColorByScale(colors.pink, 300),
+      'bold-text': getColorByScale(colors.red, 500),
+      'italic-text': getColorByScale(colors.orange, 500),
+      'code-text': getColorByScale(colors.yellow, 700),
+      'strikethrough-text': getColorByScale(colors.gray, 500),
     },
     'Royal Purple': {
       'guillemets-symbol': getColorByScale(colors.purple, 500),
@@ -313,6 +358,10 @@ async function showPresetThemes() {
       'braces-text': getColorByScale(colors.pink, 400),
       'angle-symbol': getColorByScale(colors.indigo, 600),
       'angle-text': getColorByScale(colors.indigo, 400),
+      'bold-text': getColorByScale(colors.purple, 500),
+      'italic-text': getColorByScale(colors.violet, 500),
+      'code-text': getColorByScale(colors.fuchsia, 500),
+      'strikethrough-text': getColorByScale(colors.gray, 500),
     },
     Professional: {
       'guillemets-symbol': getColorByScale(colors.slate, 600),
@@ -325,6 +374,10 @@ async function showPresetThemes() {
       'braces-text': getColorByScale(colors.neutral, 500),
       'angle-symbol': getColorByScale(colors.stone, 600),
       'angle-text': getColorByScale(colors.stone, 400),
+      'bold-text': getColorByScale(colors.slate, 500),
+      'italic-text': getColorByScale(colors.gray, 500),
+      'code-text': getColorByScale(colors.zinc, 500),
+      'strikethrough-text': getColorByScale(colors.neutral, 500),
     },
   };
 
@@ -369,6 +422,10 @@ async function updateTokenColor(tokenType: string, color: string) {
       'braces-text': 'string.quoted.curly.markdown',
       'angle-symbol': 'punctuation.definition.angle.markdown',
       'angle-text': 'string.quoted.angle.markdown',
+      'bold-text': 'markup.bold.markdown',
+      'italic-text': 'markup.italic.markdown',
+      'code-text': 'markup.inline.raw.markdown',
+      'strikethrough-text': 'markup.strikethrough.markdown',
     };
 
     const scope = scopeMap[tokenType];
@@ -438,6 +495,10 @@ async function resetToDefaults() {
       'string.quoted.curly.markdown',
       'punctuation.definition.angle.markdown',
       'string.quoted.angle.markdown',
+      'markup.bold.markdown',
+      'markup.italic.markdown',
+      'markup.inline.raw.markdown',
+      'markup.strikethrough.markdown',
     ];
 
     tokenColors.textMateRules = tokenColors.textMateRules.filter(

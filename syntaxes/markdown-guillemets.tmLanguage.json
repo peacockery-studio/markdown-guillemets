@@ -15,7 +15,21 @@
         "0": {
           "name": "punctuation.definition.guillemets.markdown"
         }
-      }
+      },
+      "patterns": [
+        {
+          "include": "text.html.markdown#bold"
+        },
+        {
+          "include": "text.html.markdown#italic"
+        },
+        {
+          "include": "text.html.markdown#raw"
+        },
+        {
+          "include": "text.html.markdown#strikethrough"
+        }
+      ]
     },
     {
       "name": "string.quoted.square.markdown",
@@ -30,7 +44,21 @@
         "0": {
           "name": "punctuation.definition.square.markdown"
         }
-      }
+      },
+      "patterns": [
+        {
+          "include": "text.html.markdown#bold"
+        },
+        {
+          "include": "text.html.markdown#italic"
+        },
+        {
+          "include": "text.html.markdown#raw"
+        },
+        {
+          "include": "text.html.markdown#strikethrough"
+        }
+      ]
     },
     {
       "name": "string.quoted.round.markdown",
@@ -45,7 +73,21 @@
         "0": {
           "name": "punctuation.definition.round.markdown"
         }
-      }
+      },
+      "patterns": [
+        {
+          "include": "text.html.markdown#bold"
+        },
+        {
+          "include": "text.html.markdown#italic"
+        },
+        {
+          "include": "text.html.markdown#raw"
+        },
+        {
+          "include": "text.html.markdown#strikethrough"
+        }
+      ]
     },
     {
       "name": "string.quoted.curly.markdown",
@@ -60,7 +102,21 @@
         "0": {
           "name": "punctuation.definition.curly.markdown"
         }
-      }
+      },
+      "patterns": [
+        {
+          "include": "text.html.markdown#bold"
+        },
+        {
+          "include": "text.html.markdown#italic"
+        },
+        {
+          "include": "text.html.markdown#raw"
+        },
+        {
+          "include": "text.html.markdown#strikethrough"
+        }
+      ]
     },
     {
       "name": "string.quoted.angle.markdown",
@@ -75,7 +131,21 @@
         "0": {
           "name": "punctuation.definition.angle.markdown"
         }
-      }
+      },
+      "patterns": [
+        {
+          "include": "text.html.markdown#bold"
+        },
+        {
+          "include": "text.html.markdown#italic"
+        },
+        {
+          "include": "text.html.markdown#raw"
+        },
+        {
+          "include": "text.html.markdown#strikethrough"
+        }
+      ]
     }
   ]
 }

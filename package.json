@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/peacockery-studio/markdown-guillemets"
   },
-  "version": "0.0.1",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.102.0"
   },
@@ -82,6 +82,33 @@
             "scope": "punctuation.definition.angle.markdown",
             "settings": {
               "foreground": "#54a0ff"
+            }
+          },
+          {
+            "scope": "markup.bold.markdown",
+            "settings": {
+              "foreground": "#f59e0b",
+              "fontStyle": "bold"
+            }
+          },
+          {
+            "scope": "markup.italic.markdown",
+            "settings": {
+              "foreground": "#ff0000",
+              "fontStyle": "italic"
+            }
+          },
+          {
+            "scope": "markup.inline.raw.markdown",
+            "settings": {
+              "foreground": "#10b981"
+            }
+          },
+          {
+            "scope": "markup.strikethrough.markdown",
+            "settings": {
+              "foreground": "#6b7280",
+              "fontStyle": "strikethrough"
             }
           }
         ]
