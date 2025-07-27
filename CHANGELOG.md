@@ -11,21 +11,32 @@ All notable changes to the "markdown-guillemets" extension will be documented in
 - **Enhanced color customization** - Separate symbol and text color options for all bracket types
 - **Preset themes** - Multiple built-in color themes (Ocean Breeze, Forest Glow, Sunset Vibes, Royal Purple, Professional)
 - **VS Code best practices documentation** - Comprehensive guide for optimal syntax highlighting implementation
+- **Markdown formatting support** - Bold (`**text**`), italic (`*text*`), inline code (`` `text` ``), and strikethrough (`~~text~~`) now work inside all bracket types
+- **Enhanced QuickPick UI** - Improved command interface with visual descriptions, aligned labels, and separator sections
+- **Simplified color picker** - Reduced shade options to Light (300), Medium (500), and Dark (700) for faster selection
 
 ### Changed
 - **Simplified activation** - Removed manual welcome message and setup prompts for zero-friction experience
-- **Improved command structure** - Enhanced color customization commands with better organization
+- **Improved command structure** - Enhanced color customization commands with better organization and visual hierarchy
 - **Better theme compatibility** - Colors work seamlessly across light and dark themes
 - **Performance optimizations** - Cleaner code with removed unused functions and variables
+- **TextMate grammar enhancement** - All bracket patterns now include markdown formatting support via VS Code's built-in grammar
+- **Color scope corrections** - Fixed inline code scope from `markup.inline.raw.string.markdown` to `markup.inline.raw.markdown`
 
 ### Removed
 - Manual color setup prompts and welcome messages
 - Unused functions (`applyRecommendedSettings`, `_getCurrentTokenColor`)
 - Debug console output file
+- "Quick Setup" command (redundant with automatic color application)
+- Link formatting support (removed for simplicity)
+- Bold symbol color customization (uses VS Code's built-in styling)
+- Excessive color shade options (kept only 300, 500, 700)
 
 ### Fixed
 - Lint errors and code formatting issues
 - Pre-commit hook configuration
+- Bold text pattern ending detection (switched to VS Code's built-in grammar)
+- Extension command scope mappings for markdown formatting
 
 ## [0.0.1] - 2024-07-24
 

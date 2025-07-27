@@ -83,7 +83,7 @@ function registerColorCommands(context: vscode.ExtensionContext) {
         {
           label: 'Apply Preset Theme             ',
           description:
-            'Ocean Breeze • Forest Glow • Sunset Vibes • Royal Purple • Professional',
+            'Default • Colorblind Friendly • Ocean Breeze • Forest Glow • Sunset Vibes • Royal Purple • Professional',
         },
         {
           label: 'Reset All Colors                    ',
@@ -298,6 +298,22 @@ async function showPresetThemes() {
       'italic-text': getColorByScale(colors.purple, 500),
       'code-text': getColorByScale(colors.green, 500),
       'strikethrough-text': getColorByScale(colors.gray, 500),
+    },
+    'Colorblind Friendly': {
+      'guillemets-symbol': getColorByScale(colors.blue, 700),
+      'guillemets-text': getColorByScale(colors.blue, 500),
+      'brackets-symbol': getColorByScale(colors.orange, 700),
+      'brackets-text': getColorByScale(colors.orange, 500),
+      'parentheses-symbol': getColorByScale(colors.purple, 700),
+      'parentheses-text': getColorByScale(colors.purple, 500),
+      'braces-symbol': getColorByScale(colors.cyan, 700),
+      'braces-text': getColorByScale(colors.cyan, 500),
+      'angle-symbol': getColorByScale(colors.amber, 700),
+      'angle-text': getColorByScale(colors.amber, 500),
+      'bold-text': getColorByScale(colors.blue, 700),
+      'italic-text': getColorByScale(colors.purple, 700),
+      'code-text': getColorByScale(colors.orange, 700),
+      'strikethrough-text': getColorByScale(colors.slate, 600),
     },
     'Ocean Breeze': {
       'guillemets-symbol': getColorByScale(colors.blue, 500),
