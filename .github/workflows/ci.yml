@@ -20,13 +20,32 @@ jobs:
     
     - name: Setup Bun
       uses: oven-sh/setup-bun@v1
-    
+
+    - name: Cache dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.bun/install/cache
+        key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-bun-
+
     - name: Install dependencies
       run: bun install
-    
+
     - name: Compile TypeScript
       run: bunx tsc -p ./
-    
+
+    - name: Setup Xvfb (for VSCode tests)
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y xvfb libgtk-3-0 libgbm1 libnss3 libasound2
+        Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+
+    - name: Run tests
+      run: bun test
+      env:
+        DISPLAY: ':99.0'
+
     - name: Run ultracite lint check
       run: bunx ultracite lint
     

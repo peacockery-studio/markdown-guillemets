@@ -4,6 +4,9 @@
   "files": {
     "includes": ["**", "!bun.lock", "!out/**"]
   },
+  "javascript": {
+    "globals": ["suite", "test"]
+  },
   "linter": {
     "rules": {
       "performance": {
@@ -11,16 +14,23 @@
         "useTopLevelRegex": "off"
       },
       "style": {
-        "useDefaultSwitchClause": "off"
+        "useDefaultSwitchClause": "off",
+        "useFilenamingConvention": "off"
       },
       "suspicious": {
         "noExplicitAny": "off",
         "noEmptyBlockStatements": "off",
         "noConsole": "off"
       },
+      "correctness": {
+        "noUndeclaredVariables": "off"
+      },
       "nursery": {
         "noAwaitInLoop": "off",
         "noShadow": "off"
+      },
+      "complexity": {
+        "noForEach": "off"
       }
     }
   }

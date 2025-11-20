@@ -1,17 +1,47 @@
 import * as vscode from 'vscode';
 import { colors } from './colors';
+import type {
+  ColorInfo,
+  ColorScale,
+  SelectedColor,
+  TextMateRule,
+  Theme,
+  TokenColorCustomizations,
+  TokenType,
+} from './types';
+import { COLOR_SCALES, EXTENSION_SCOPES, SCOPE_MAP } from './types';
+
+/**
+ * Output channel for extension logging (development/debugging)
+ */
+let outputChannel: vscode.OutputChannel;
+
+/**
+ * Logs a message to the output channel (only in development mode)
+ */
+function log(message: string): void {
+  if (process.env.NODE_ENV === 'development' && outputChannel) {
+    outputChannel.appendLine(`[${new Date().toISOString()}] ${message}`);
+  }
+}
 
 export function activate(context: vscode.ExtensionContext) {
   try {
-    console.log('Markdown Guillemets extension is now active!');
-    console.log('Extension context:', context.extensionPath);
+    // Create output channel for debugging (hidden by default)
+    outputChannel = vscode.window.createOutputChannel('Markdown Guillemets', {
+      log: true,
+    });
+    context.subscriptions.push(outputChannel);
+
+    log('Markdown Guillemets extension is now active!');
+    log(`Extension path: ${context.extensionPath}`);
 
     registerColorCommands(context);
-    console.log('Commands registered successfully');
+    log('Commands registered successfully');
   } catch (error) {
-    console.error('Error activating Markdown Guillemets extension:', error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
     vscode.window.showErrorMessage(
-      `Markdown Guillemets activation failed: ${error}`
+      `Markdown Guillemets activation failed: ${errorMessage}`
     );
   }
 }
@@ -95,7 +125,13 @@ function registerColorCommands(context: vscode.ExtensionContext) {
         placeHolder: 'Choose what to customize',
       });
 
-      switch (selection?.label?.trim()) {
+      if (!selection) {
+        return; // User cancelled
+      }
+
+      const label = selection.label.trim();
+
+      switch (label) {
         case 'Guillemets Symbol Color':
           await customizeTokenColor('guillemets-symbol');
           break;
@@ -145,6 +181,9 @@ function registerColorCommands(context: vscode.ExtensionContext) {
         case 'Reset All Colors':
           await resetToDefaults();
           break;
+        default:
+          log(`Unknown selection: ${label}`);
+          break;
       }
     }
   );
@@ -152,7 +191,11 @@ function registerColorCommands(context: vscode.ExtensionContext) {
   context.subscriptions.push(customizeColors);
 }
 
-async function customizeTokenColor(tokenType: string) {
+/**
+ * Opens the color picker for a specific token type
+ * @param tokenType - The token type to customize
+ */
+async function customizeTokenColor(tokenType: TokenType): Promise<void> {
   const selectedColor = await showTwoStepColorPicker(tokenType);
 
   if (selectedColor) {
@@ -163,9 +206,14 @@ async function customizeTokenColor(tokenType: string) {
   }
 }
 
+/**
+ * Shows a two-step color picker (family, then shade)
+ * @param tokenType - The token type being customized
+ * @returns The selected color or undefined if cancelled
+ */
 async function showTwoStepColorPicker(
-  tokenType: string
-): Promise<{ hex: string; name: string } | undefined> {
+  tokenType: TokenType
+): Promise<SelectedColor | undefined> {
   const colorFamilies = [
     {
       label: '🔴 Red',
@@ -228,8 +276,8 @@ async function showTwoStepColorPicker(
     return;
   }
 
-  const filteredColors = familyColors.filter((color) =>
-    [300, 500, 700].includes(color.scale)
+  const filteredColors = (familyColors as ColorInfo[]).filter((color) =>
+    COLOR_SCALES.includes(color.scale as ColorScale)
   );
 
   const shadeOptions = filteredColors.map((color) => {
@@ -255,6 +303,11 @@ async function showTwoStepColorPicker(
     : undefined;
 }
 
+/**
+ * Gets a human-readable intensity description for a color scale
+ * @param scale - The color scale (300, 500, or 700)
+ * @returns Intensity description
+ */
 function getIntensityDescription(scale: number): string {
   if (scale === 300) {
     return 'Light';
@@ -268,6 +321,12 @@ function getIntensityDescription(scale: number): string {
   return 'Unknown';
 }
 
+/**
+ * Gets a visual preview of the color intensity
+ * @param _hex - The hex color (unused but kept for future use)
+ * @param scale - The color scale
+ * @returns Visual intensity indicator
+ */
 function getColorPreview(_hex: string, scale: number): string {
   if (scale === 300) {
     return '●●○○○';
@@ -281,8 +340,11 @@ function getColorPreview(_hex: string, scale: number): string {
   return '●●●○○';
 }
 
-async function showPresetThemes() {
-  const themes: Record<string, Record<string, string>> = {
+/**
+ * Shows a picker with preset theme options and applies the selected theme
+ */
+async function showPresetThemes(): Promise<void> {
+  const themes: Record<string, Theme> = {
     'Default (Recommended)': {
       'guillemets-symbol': getColorByScale(colors.blue, 500),
       'guillemets-text': getColorByScale(colors.blue, 300),
@@ -414,46 +476,40 @@ async function showPresetThemes() {
   }
 }
 
-async function updateTokenColor(tokenType: string, color: string) {
+/**
+ * Updates the color for a specific token type in VSCode settings
+ * @param tokenType - The type of token to update
+ * @param color - Hex color string (e.g., '#ff0000')
+ */
+async function updateTokenColor(
+  tokenType: TokenType,
+  color: string
+): Promise<void> {
   try {
-    console.log(`Updating token color for ${tokenType} to ${color}`);
+    log(`Updating token color for ${tokenType} to ${color}`);
     const config = vscode.workspace.getConfiguration();
     const tokenColors =
-      (config.get('editor.tokenColorCustomizations') as any) || {};
+      config.get<TokenColorCustomizations>('editor.tokenColorCustomizations') ||
+      {};
 
-    console.log('Current tokenColors:', JSON.stringify(tokenColors, null, 2));
+    log(
+      `Current tokenColors: ${JSON.stringify(tokenColors, null, 2).substring(0, 200)}...`
+    );
 
     if (!tokenColors.textMateRules) {
       tokenColors.textMateRules = [];
     }
 
-    const scopeMap: Record<string, string> = {
-      'guillemets-symbol': 'punctuation.definition.guillemets.markdown',
-      'guillemets-text': 'string.quoted.guillemets.markdown',
-      'brackets-symbol': 'punctuation.definition.square.markdown',
-      'brackets-text': 'string.quoted.square.markdown',
-      'parentheses-symbol': 'punctuation.definition.round.markdown',
-      'parentheses-text': 'string.quoted.round.markdown',
-      'braces-symbol': 'punctuation.definition.curly.markdown',
-      'braces-text': 'string.quoted.curly.markdown',
-      'angle-symbol': 'punctuation.definition.angle.markdown',
-      'angle-text': 'string.quoted.angle.markdown',
-      'bold-text': 'markup.bold.markdown',
-      'italic-text': 'markup.italic.markdown',
-      'code-text': 'markup.inline.raw.string.markdown',
-      'strikethrough-text': 'markup.strikethrough.markdown',
-    };
-
-    const scope = scopeMap[tokenType];
-    console.log(`Updating ${tokenType} (${scope}) to ${color}`);
+    const scope = SCOPE_MAP[tokenType];
+    log(`Updating ${tokenType} (${scope}) to ${color}`);
 
     const existingRuleIndex = tokenColors.textMateRules.findIndex(
-      (rule: any) =>
+      (rule: TextMateRule) =>
         rule.scope === scope ||
         (Array.isArray(rule.scope) && rule.scope.includes(scope))
     );
 
-    const newRule = {
+    const newRule: TextMateRule = {
       scope,
       settings: {
         foreground: color,
@@ -461,14 +517,14 @@ async function updateTokenColor(tokenType: string, color: string) {
     };
 
     if (existingRuleIndex >= 0) {
-      console.log(`Updating existing rule at index ${existingRuleIndex}`);
+      log(`Updating existing rule at index ${existingRuleIndex}`);
       tokenColors.textMateRules[existingRuleIndex] = newRule;
     } else {
-      console.log('Adding new rule');
+      log('Adding new rule');
       tokenColors.textMateRules.push(newRule);
     }
 
-    console.log('Final tokenColors:', JSON.stringify(tokenColors, null, 2));
+    log('Configuration will be updated');
 
     await config.update(
       'editor.tokenColorCustomizations',
@@ -476,14 +532,19 @@ async function updateTokenColor(tokenType: string, color: string) {
       vscode.ConfigurationTarget.Global
     );
 
-    console.log('Configuration updated successfully');
+    log('Configuration updated successfully');
   } catch (error) {
-    console.error('Error updating token color:', error);
-    vscode.window.showErrorMessage(`Failed to update color: ${error}`);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    log(`Error updating token color: ${errorMessage}`);
+    vscode.window.showErrorMessage(`Failed to update color: ${errorMessage}`);
   }
 }
 
-async function applyTheme(theme: Record<string, string>) {
+/**
+ * Applies a complete theme by updating all token colors
+ * @param theme - Theme configuration with colors for all token types
+ */
+async function applyTheme(theme: Theme): Promise<void> {
   const config = vscode.workspace.getConfiguration();
   const originalFormatOnSave = config.get('editor.formatOnSave');
 
@@ -499,7 +560,7 @@ async function applyTheme(theme: Record<string, string>) {
 
     // Apply all color changes sequentially
     for (const [tokenType, color] of Object.entries(theme)) {
-      await updateTokenColor(tokenType, color);
+      await updateTokenColor(tokenType as TokenType, color);
     }
   } finally {
     // Always restore formatOnSave, even if something fails
@@ -513,40 +574,34 @@ async function applyTheme(theme: Record<string, string>) {
   }
 }
 
-function getColorByScale(colorArray: any[], scale: number): string {
+/**
+ * Gets a color from a color array by its scale
+ * @param colorArray - Array of colors with scale information
+ * @param scale - The desired scale (e.g., 300, 500, 700)
+ * @returns Hex color string or white as fallback
+ */
+function getColorByScale(colorArray: ColorInfo[], scale: number): string {
   const colorObj = colorArray.find((c) => c.scale === scale);
   return colorObj?.hex || '#FFFFFF';
 }
 
-async function resetToDefaults() {
+/**
+ * Resets all extension-managed colors to default by removing custom rules
+ */
+async function resetToDefaults(): Promise<void> {
   const config = vscode.workspace.getConfiguration();
   const tokenColors =
-    (config.get('editor.tokenColorCustomizations') as any) || {};
+    config.get<TokenColorCustomizations>('editor.tokenColorCustomizations') ||
+    {};
 
   if (tokenColors.textMateRules) {
-    const scopes = [
-      'punctuation.definition.guillemets.markdown',
-      'string.quoted.guillemets.markdown',
-      'punctuation.definition.square.markdown',
-      'string.quoted.square.markdown',
-      'punctuation.definition.round.markdown',
-      'string.quoted.round.markdown',
-      'punctuation.definition.curly.markdown',
-      'string.quoted.curly.markdown',
-      'punctuation.definition.angle.markdown',
-      'string.quoted.angle.markdown',
-      'markup.bold.markdown',
-      'markup.italic.markdown',
-      'markup.inline.raw.string.markdown',
-      'markup.strikethrough.markdown',
-    ];
-
+    // Remove only rules for scopes managed by this extension
     tokenColors.textMateRules = tokenColors.textMateRules.filter(
-      (rule: any) =>
+      (rule: TextMateRule) =>
         !(
-          scopes.includes(rule.scope) ||
+          EXTENSION_SCOPES.includes(rule.scope as string) ||
           (Array.isArray(rule.scope) &&
-            rule.scope.some((s: string) => scopes.includes(s)))
+            rule.scope.some((s: string) => EXTENSION_SCOPES.includes(s)))
         )
     );
 
@@ -559,4 +614,9 @@ async function resetToDefaults() {
   }
 }
 
-export function deactivate() {}
+/**
+ * Called when the extension is deactivated
+ */
+export function deactivate(): void {
+  // Cleanup is handled by context.subscriptions
+}

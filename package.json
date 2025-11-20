@@ -115,12 +115,21 @@
       }
     }
   },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/peacockery-studio/markdown-guillemets/issues"
+  },
   "devDependencies": {
     "@biomejs/biome": "2.1.2",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^20.17.9",
     "@types/vscode": "^1.102.0",
+    "@vscode/test-electron": "^2.4.1",
     "@vscode/vsce": "^3.6.0",
+    "glob": "^11.0.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.2",
+    "mocha": "^10.8.2",
     "typescript": "^5.8.3",
     "ultracite": "5.0.48"
   },
@@ -129,15 +138,16 @@
     "watch": "bunx tsc -watch -p ./",
     "lint": "bunx ultracite format",
     "package": "bunx vsce package",
+    "test": "bunx tsc -p ./ && node ./out/test/runTests.js",
     "prepare": "husky"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,jsonc,css,scss}": [
-      "bunx ultracite format",
-      "bunx ultracite lint"
+      "npx ultracite format",
+      "npx ultracite lint"
     ],
     "*.{md,mdx}": [
-      "bunx markdownlint-cli2"
+      "npx markdownlint-cli2"
     ]
   }
 }
