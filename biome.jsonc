@@ -1,8 +1,8 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.1.2/schema.json",
-  "extends": ["ultracite"],
+  "$schema": "https://biomejs.dev/schemas/2.3.11/schema.json",
+  "extends": ["ultracite/core"],
   "files": {
-    "includes": ["**", "!bun.lock", "!out/**"]
+    "includes": ["!bun.lock", "!out"]
   },
   "javascript": {
     "globals": ["suite", "test"]
@@ -26,7 +26,6 @@
         "noUndeclaredVariables": "off"
       },
       "nursery": {
-        "noAwaitInLoop": "off",
         "noShadow": "off"
       },
       "complexity": {

@@ -8,6 +8,7 @@ A VSCode extension that adds syntax highlighting for French guillemets and commo
 ## Features
 
 ### Bracket Highlighting
+
 This extension provides distinct syntax highlighting for:
 
 - **French guillemets**: `«text»`
@@ -19,6 +20,7 @@ This extension provides distinct syntax highlighting for:
 Each bracket type gets its own scope, allowing you to customize colors independently.
 
 ### Markdown Formatting Support
+
 All bracket types support markdown formatting inside them:
 
 - **Bold text**: `«**bold text**»`, `[**bold text**]`, `(**bold text**)`
@@ -27,9 +29,11 @@ All bracket types support markdown formatting inside them:
 - **Strikethrough**: `«~~strikethrough~~»`, `[~~strikethrough~~]`, `(~~strikethrough~~)`
 
 ### Easy Customization
-**Interactive Color Picker** - No manual JSON editing required! Access via Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) → "Markdown Guillemets: Customize Colors"
+
+* *Interactive Color Picker** - No manual JSON editing required! Access via Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) → "Markdown Guillemets: Customize Colors"
 
 ### Automatic Setup
+
 Colors work out-of-the-box with sensible defaults. No configuration needed for basic usage.
 
 ## Installation
@@ -53,35 +57,43 @@ Colors work out-of-the-box with sensible defaults. No configuration needed for b
 ## Usage Examples
 
 ### Basic Bracket Highlighting
+
 ```markdown
 French quotes: «Bonjour le monde»
 Square brackets: [Important note]
 Parentheses: (Additional context)
 Curly braces: {Configuration option}
 Angle brackets: <Required field>
-```
+
+```text
 
 ### Markdown Formatting Inside Brackets
+
 ```markdown
 Bold emphasis: «**This is bold**» and [**also bold**]
 Italic text: «*This is italic*» and (*also italic*)
 Inline code: «`console.log()`» and {`npm install`}
 Strikethrough: «~~deprecated~~» and <~~old method~~>
-```
+
+```text
 
 ### Mixed Content
+
 ```markdown
-Complex example: «**Bold** and *italic* with `code` and ~~strikethrough~~»
+Complex example: «**Bold**and*italic* with `code` and ~~strikethrough~~»
 Nested formatting: [**Bold** text with (*italic parentheses*) inside]
 Technical docs: {`config.json`} contains «**important**» settings
-```
+
+```text
 
 ### Real-world Examples
+
 ```markdown
 Documentation: [**API Reference**] - see «*Getting Started*» guide
 Code comments: // TODO: {**refactor this**} - (*performance issue*)
 Notes: «Remember to run `npm test` before ~~deployment~~ **release**»
-```
+
+```text
 
 ## Customization
 
@@ -92,19 +104,21 @@ Use the built-in color picker for easy customization:
 1. **Command Palette** (`Cmd+Shift+P` / `Ctrl+Shift+P`)
 2. Type: `Markdown Guillemets: Customize Colors`
 3. Choose what to customize:
-   - **Individual punctuation colors** (guillemets, brackets, parentheses, braces, angles)
-   - **Preset themes** (Ocean Breeze, Forest Glow, Sunset Vibes, Royal Purple, Professional)
-   - **Reset to defaults**
+    - **Individual punctuation colors** (guillemets, brackets, parentheses, braces, angles)
+    - **Preset themes** (Ocean Breeze, Forest Glow, Sunset Vibes, Royal Purple, Professional)
+    - **Reset to defaults**
 
 #### Two-Step Color Selection
+
 When customizing individual colors:
 
-**Step 1:** Choose color family (Red, Blue, Green, Purple, Yellow, Pink, Cyan, Orange)  
-**Step 2:** Choose intensity (300 - Light, 500 - Medium, 700 - Dark)
+* *Step 1:** Choose color family (Red, Blue, Green, Purple, Yellow, Pink, Cyan, Orange)  
+* *Step 2:** Choose intensity (300 - Light, 500 - Medium, 700 - Dark)
 
 Changes apply instantly - no restart needed!
 
 #### Available Preset Themes
+
 - **Default**: Original extension colors (recommended)
 - **Colorblind Friendly**: High contrast colors that work for all types of color vision
 - **Ocean Breeze**: Cool blues and teals
@@ -122,6 +136,7 @@ For fine-grained control, you can manually edit VS Code settings:
 3. Add custom token color rules
 
 #### Default Color Scheme
+
 - **Guillemets «»**: Green text (#22c55e) with bold symbols (#dc2626)
 - **Square brackets []**: Blue text (#3b82f6) with bold symbols (#a855f7)
 - **Parentheses ()**: Orange text (#f97316) with bold symbols (#06b6d4)
@@ -129,6 +144,7 @@ For fine-grained control, you can manually edit VS Code settings:
 - **Angle brackets <>**: Pink text (#ec4899) with bold symbols (#9333ea)
 
 #### Manual Configuration Example
+
 ```json
 "editor.tokenColorCustomizations": {
   "textMateRules": [
@@ -148,9 +164,11 @@ For fine-grained control, you can manually edit VS Code settings:
     // ... additional rules for other bracket types
   ]
 }
-```
+
+```text
 
 #### Available Scopes
+
 - `string.quoted.guillemets.markdown` - Text between guillemets `«like this»`
 - `punctuation.definition.guillemets.markdown` - The guillemets themselves `«»`
 - `string.quoted.square.markdown` - Text between square brackets `[like this]`
@@ -163,6 +181,7 @@ For fine-grained control, you can manually edit VS Code settings:
 - `punctuation.definition.angle.markdown` - The angle brackets themselves `<>`
 
 #### Troubleshooting
+
 - **Colors not showing**: Ensure you're editing a `.md` file and the extension is enabled
 - **Custom colors not applying**: Check that your JSON syntax is valid in settings
 - **Conflicts with themes or existing customizations**:

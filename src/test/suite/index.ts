@@ -1,19 +1,19 @@
-import * as path from 'node:path';
-import { glob } from 'glob';
-import Mocha from 'mocha';
+import * as path from "node:path";
+import { glob } from "glob";
+import Mocha from "mocha";
 
 export async function run(): Promise<void> {
   // Create the mocha test
   const mocha = new Mocha({
-    ui: 'tdd',
+    ui: "tdd",
     color: true,
     timeout: 10_000,
   });
 
-  const testsRoot = path.resolve(__dirname, '..');
+  const testsRoot = path.resolve(__dirname, "..");
 
   try {
-    const files = await glob('**/**.test.js', { cwd: testsRoot });
+    const files = await glob("**/**.test.js", { cwd: testsRoot });
 
     // Add files to the test suite
     for (const f of files) {
@@ -36,7 +36,7 @@ export async function run(): Promise<void> {
       }
     });
   } catch (err) {
-    console.error('Error finding test files:', err);
+    console.error("Error finding test files:", err);
     throw err;
   }
 }
