@@ -4,7 +4,7 @@ Your current approach using TextMate grammars with `editor.tokenColorCustomizati
 
 ## Is your current approach optimal?
 
-**Your implementation is partially optimal.** TextMate grammars remain the primary syntax highlighting mechanism in VS Code, providing immediate feedback with excellent performance. However, requiring users to manually apply color settings creates friction. The research reveals that VS Code provides better methods for automatic color application that you should implement.
+* *Your implementation is partially optimal.** TextMate grammars remain the primary syntax highlighting mechanism in VS Code, providing immediate feedback with excellent performance. However, requiring users to manually apply color settings creates friction. The research reveals that VS Code provides better methods for automatic color application that you should implement.
 
 ### Current approach strengths
 
@@ -41,7 +41,8 @@ Replace your current welcome message approach with **configurationDefaults in pa
     }
   }
 }
-```
+
+```text
 
 This approach **merges with user settings** rather than replacing them, respects the user's base theme, and requires zero user interaction. The colors apply immediately upon extension activation.
 
@@ -61,9 +62,10 @@ For extensions requiring extensive color customization beyond syntax tokens, cre
     }]
   }
 }
-```
 
-**When to use**: If you need to control UI elements beyond editor tokens or want to provide multiple color scheme options. Users must manually select the theme, so this isn't truly automatic.
+```text
+
+* *When to use**: If you need to control UI elements beyond editor tokens or want to provide multiple color scheme options. Users must manually select the theme, so this isn't truly automatic.
 
 ### 2. Semantic token provider
 
@@ -78,9 +80,10 @@ const provider: vscode.DocumentSemanticTokensProvider = {
     }
 };
 vscode.languages.registerDocumentSemanticTokensProvider('markdown', provider, legend);
-```
 
-**When to use**: If brackets have different meanings based on context (e.g., distinguishing function parameters from array indices). This adds a performance cost due to asynchronous processing.
+```text
+
+* *When to use**: If brackets have different meanings based on context (e.g., distinguishing function parameters from array indices). This adds a performance cost due to asynchronous processing.
 
 ### 3. Text editor decorations
 
@@ -92,18 +95,19 @@ const decorationType = vscode.window.createTextEditorDecorationType({
     fontWeight: 'bold'
 });
 editor.setDecorations(decorationType, bracketRanges);
-```
 
-**When to use**: For temporary highlights, error indicators, or styling that changes based on user interaction. More resource-intensive than TextMate grammars.
+```text
+
+* *When to use**: For temporary highlights, error indicators, or styling that changes based on user interaction. More resource-intensive than TextMate grammars.
 
 ## Implementation recommendations
 
 ### Primary recommendation: Hybrid approach
 
-**1. Keep your TextMate grammar** as the foundation for immediate syntax recognition
-**2. Add configurationDefaults** for automatic color application
-**3. Consider semantic tokens** only if you need context-aware highlighting
-**4. Use decorations** sparingly for special visual effects
+* *1. Keep your TextMate grammar** as the foundation for immediate syntax recognition
+* *2. Add configurationDefaults** for automatic color application
+* *3. Consider semantic tokens** only if you need context-aware highlighting
+* *4. Use decorations** sparingly for special visual effects
 
 ### Color theme compatibility
 
@@ -123,24 +127,25 @@ Ensure your colors work across light and dark themes:
     }]
   }
 }
-```
+
+```text
 
 ### Performance best practices
 
-**TextMate grammars remain optimal** for your use case because:
+* *TextMate grammars remain optimal** for your use case because:
 - Brackets and guillemets are syntactically identifiable without semantic context
 - Regex patterns provide immediate updates without language server delays
 - Memory usage is 22-25% lower than decoration-based approaches
 
 ## Answers to your specific questions
 
-**Is this the best approach?** Your TextMate grammar approach is correct for syntax-based highlighting. The only change needed is moving from manual `tokenColorCustomizations` to automatic `configurationDefaults`.
+* *Is this the best approach?** Your TextMate grammar approach is correct for syntax-based highlighting. The only change needed is moving from manual `tokenColorCustomizations` to automatic `configurationDefaults`.
 
-**What alternatives exist?** Semantic tokens for context-aware highlighting, complete themes for full control, and decorations for dynamic effects. For simple bracket colorization, these add unnecessary complexity.
+* *What alternatives exist?** Semantic tokens for context-aware highlighting, complete themes for full control, and decorations for dynamic effects. For simple bracket colorization, these add unnecessary complexity.
 
-**How to apply colors automatically?** Use `contributes.configurationDefaults` in package.json instead of prompting users. This is the standard approach used by successful extensions.
+* *How to apply colors automatically?** Use `contributes.configurationDefaults` in package.json instead of prompting users. This is the standard approach used by successful extensions.
 
-**Are you using the right APIs?** Yes, TextMate grammars are the correct choice for syntax highlighting. Just switch to `configurationDefaults` for color application to eliminate user friction.
+* *Are you using the right APIs?** Yes, TextMate grammars are the correct choice for syntax highlighting. Just switch to `configurationDefaults` for color application to eliminate user friction.
 
 ## Conclusion
 
