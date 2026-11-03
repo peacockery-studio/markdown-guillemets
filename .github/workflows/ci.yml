@@ -16,7 +16,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '24'
     
     - name: Setup Bun
       uses: oven-sh/setup-bun@v1
@@ -26,18 +26,18 @@ jobs:
     
     - name: Compile TypeScript
       run: bunx tsc -p ./
+
+    - name: Run tests
+      run: bun run test
     
-    - name: Run ultracite lint check
-      run: bunx ultracite lint
+    - name: Run Ultracite check
+      run: bunx ultracite check
     
     - name: Run markdownlint-cli2
       run: bunx markdownlint-cli2 "**/*.md" "#node_modules"
     
-    - name: Install vsce
-      run: npm install -g vsce
-    
     - name: Package extension
-      run: vsce package
+      run: bun run package
     
     - name: Upload VSIX
       uses: actions/upload-artifact@v4

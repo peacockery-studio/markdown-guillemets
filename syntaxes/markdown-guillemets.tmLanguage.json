@@ -1,6 +1,6 @@
 {
   "scopeName": "markdown.guillemets",
-  "injectionSelector": "L:text.html.markdown",
+  "injectionSelector": "L:text.html.markdown - markup.inline.raw.string.markdown - markup.fenced_code.block.markdown - markup.raw.block.markdown",
   "patterns": [
     {
       "name": "string.quoted.guillemets.markdown",

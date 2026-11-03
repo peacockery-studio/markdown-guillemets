@@ -7,6 +7,10 @@
     "type": "git",
     "url": "https://github.com/peacockery-studio/markdown-guillemets"
   },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/peacockery-studio/markdown-guillemets/issues"
+  },
   "version": "0.1.3",
   "engines": {
     "vscode": "^1.102.0"
@@ -116,25 +120,34 @@
     }
   },
   "devDependencies": {
-    "@biomejs/biome": "2.1.2",
-    "@types/vscode": "^1.102.0",
-    "@vscode/vsce": "^3.6.0",
+    "@biomejs/biome": "2.4.16",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^25.9.1",
+    "@types/vscode": "1.102.0",
+    "@vscode/vsce": "3.9.1",
     "husky": "^9.1.7",
-    "lint-staged": "^16.1.2",
-    "typescript": "^5.8.3",
-    "ultracite": "5.0.48"
+    "lint-staged": "17.0.7",
+    "mocha": "^11.7.6",
+    "tm-grammars": "^1.31.15",
+    "typescript": "6.0.3",
+    "ultracite": "7.8.1",
+    "vscode-oniguruma": "^2.0.1",
+    "vscode-textmate": "^9.3.2"
   },
   "scripts": {
-    "compile": "bunx tsc -p ./",
+    "clean": "rm -rf out",
+    "compile": "bun run clean && bunx tsc -p ./",
     "watch": "bunx tsc -watch -p ./",
-    "lint": "bunx ultracite format",
-    "package": "bunx vsce package",
+    "format": "bunx ultracite fix",
+    "lint": "bunx ultracite check",
+    "test": "bunx tsc -p ./ && bunx mocha --ui tdd \"out/test/**/*.test.js\"",
+    "package": "bun run compile && bunx vsce package",
     "prepare": "husky"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,jsonc,css,scss}": [
-      "bunx ultracite format",
-      "bunx ultracite lint"
+      "bunx ultracite fix",
+      "bunx ultracite check"
     ],
     "*.{md,mdx}": [
       "bunx markdownlint-cli2"

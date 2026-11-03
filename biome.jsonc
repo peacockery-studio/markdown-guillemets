@@ -1,11 +1,16 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.1.2/schema.json",
-  "extends": ["ultracite"],
-  "files": {
-    "includes": ["**", "!bun.lock", "!out/**"]
+  "$schema": "https://biomejs.dev/schemas/2.4.16/schema.json",
+  "extends": ["ultracite/biome/core"],
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
   },
   "linter": {
     "rules": {
+      "correctness": {
+        "noGlobalDirnameFilename": "off"
+      },
       "performance": {
         "noNamespaceImport": "off",
         "useTopLevelRegex": "off"
@@ -19,7 +24,6 @@
         "noConsole": "off"
       },
       "nursery": {
-        "noAwaitInLoop": "off",
         "noShadow": "off"
       }
     }
