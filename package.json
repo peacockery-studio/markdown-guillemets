@@ -1,20 +1,8 @@
 {
   "name": "markdown-guillemets",
   "displayName": "Markdown French Guillemets",
-  "description": "Syntax highlighting for guillemets «», brackets [], parentheses (), and braces {} in Markdown",
-  "publisher": "PeacockeryStudio",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/peacockery-studio/markdown-guillemets"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/peacockery-studio/markdown-guillemets/issues"
-  },
   "version": "0.1.3",
-  "engines": {
-    "vscode": "^1.102.0"
-  },
+  "description": "Syntax highlighting for guillemets «», brackets [], parentheses (), and braces {} in Markdown",
   "categories": [
     "Programming Languages"
   ],
@@ -26,33 +14,32 @@
     "syntax",
     "highlighting"
   ],
-  "icon": "icon.png",
-  "galleryBanner": {
-    "color": "#2E3440",
-    "theme": "dark"
+  "bugs": {
+    "url": "https://github.com/peacockery-studio/markdown-guillemets/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/peacockery-studio/markdown-guillemets"
+  },
+  "license": "MIT",
+  "publisher": "PeacockeryStudio",
   "main": "./out/extension.js",
-  "activationEvents": [
-    "onLanguage:markdown"
-  ],
+  "scripts": {
+    "clean": "rm -rf out",
+    "compile": "bun run clean && bunx tsc -p ./",
+    "format": "bunx ultracite fix",
+    "lint": "bunx ultracite check",
+    "package": "bun run compile && bunx vsce package",
+    "prepare": "husky",
+    "test": "bunx tsc -p ./ && bunx mocha --ui tdd \"out/test/**/*.test.js\"",
+    "watch": "bunx tsc -watch -p ./"
+  },
   "contributes": {
     "commands": [
       {
         "command": "markdown-guillemets.customizeColors",
         "title": "Customize Colors",
         "category": "Markdown Guillemets"
-      }
-    ],
-    "grammars": [
-      {
-        "scopeName": "markdown.guillemets",
-        "path": "./syntaxes/markdown-guillemets.tmLanguage.json",
-        "injectTo": [
-          "text.html.markdown"
-        ],
-        "embeddedLanguages": {
-          "meta.embedded.block.guillemets": "markdown"
-        }
       }
     ],
     "configurationDefaults": {
@@ -117,33 +104,23 @@
           }
         ]
       }
-    }
+    },
+    "grammars": [
+      {
+        "scopeName": "markdown.guillemets",
+        "path": "./syntaxes/markdown-guillemets.tmLanguage.json",
+        "injectTo": [
+          "text.html.markdown"
+        ],
+        "embeddedLanguages": {
+          "meta.embedded.block.guillemets": "markdown"
+        }
+      }
+    ]
   },
-  "devDependencies": {
-    "@biomejs/biome": "2.4.16",
-    "@types/mocha": "^10.0.10",
-    "@types/node": "^25.9.1",
-    "@types/vscode": "1.102.0",
-    "@vscode/vsce": "3.9.1",
-    "husky": "^9.1.7",
-    "lint-staged": "17.0.7",
-    "mocha": "^11.7.6",
-    "tm-grammars": "^1.31.15",
-    "typescript": "6.0.3",
-    "ultracite": "7.8.1",
-    "vscode-oniguruma": "^2.0.1",
-    "vscode-textmate": "^9.3.2"
-  },
-  "scripts": {
-    "clean": "rm -rf out",
-    "compile": "bun run clean && bunx tsc -p ./",
-    "watch": "bunx tsc -watch -p ./",
-    "format": "bunx ultracite fix",
-    "lint": "bunx ultracite check",
-    "test": "bunx tsc -p ./ && bunx mocha --ui tdd \"out/test/**/*.test.js\"",
-    "package": "bun run compile && bunx vsce package",
-    "prepare": "husky"
-  },
+  "activationEvents": [
+    "onLanguage:markdown"
+  ],
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,jsonc,css,scss}": [
       "bunx ultracite fix",
@@ -152,5 +129,32 @@
     "*.{md,mdx}": [
       "bunx markdownlint-cli2"
     ]
+  },
+  "overrides": {
+    "glob": "^14.0.3",
+    "minimatch": "^11.0.4"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.5",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^26.6.6",
+    "@types/vscode": "1.102.0",
+    "@vscode/vsce": "4.1.0",
+    "husky": "^9.1.7",
+    "lint-staged": "17.6.0",
+    "mocha": "^12.0.3",
+    "tm-grammars": "^1.32.22",
+    "typescript": "7.0.2",
+    "ultracite": "8.1.1",
+    "vscode-oniguruma": "^2.0.1",
+    "vscode-textmate": "^9.3.2"
+  },
+  "engines": {
+    "vscode": "^1.102.0"
+  },
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#2E3440",
+    "theme": "dark"
   }
 }

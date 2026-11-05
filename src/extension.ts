@@ -1,3 +1,4 @@
+// biome-ignore lint/correctness/noUndeclaredDependencies: the extension host provides vscode at runtime.
 import * as vscode from 'vscode';
 import { registerColorCommands } from './color-picker';
 

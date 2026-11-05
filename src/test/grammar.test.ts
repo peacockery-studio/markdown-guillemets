@@ -48,10 +48,8 @@ suite('Markdown Guillemets TextMate grammar', () => {
     await oniguruma.loadWASM(wasm);
 
     const registry = new textmate.Registry({
-      onigLib: Promise.resolve({
-        createOnigScanner: (sources) => new oniguruma.OnigScanner(sources),
-        createOnigString: (source) => new oniguruma.OnigString(source),
-      }),
+      getInjections: (scopeName) =>
+        scopeName === 'text.html.markdown' ? ['markdown.guillemets'] : [],
       loadGrammar: (scopeName) => {
         const grammarPath = grammarPaths.get(scopeName);
         if (!grammarPath) {
@@ -62,8 +60,10 @@ suite('Markdown Guillemets TextMate grammar', () => {
         const rawGrammar = fs.readFileSync(fullPath, 'utf8');
         return Promise.resolve(textmate.parseRawGrammar(rawGrammar, fullPath));
       },
-      getInjections: (scopeName) =>
-        scopeName === 'text.html.markdown' ? ['markdown.guillemets'] : [],
+      onigLib: Promise.resolve({
+        createOnigScanner: (sources) => new oniguruma.OnigScanner(sources),
+        createOnigString: (source) => new oniguruma.OnigString(source),
+      }),
     });
 
     const loadedGrammar = await registry.loadGrammar('text.html.markdown');
@@ -73,7 +73,7 @@ suite('Markdown Guillemets TextMate grammar', () => {
     grammar = loadedGrammar;
 
     const testMarkdown = fs.readFileSync(path.join(root, 'test.md'), 'utf8');
-    tokenizedTestMd = tokenizeDocument(testMarkdown.split(/\r?\n/));
+    tokenizedTestMd = tokenizeDocument(testMarkdown.split(/\r?\n/u));
   });
 
   test('applies custom scopes to the basic bracket examples in test.md', () => {
@@ -225,7 +225,7 @@ suite('Markdown Guillemets TextMate grammar', () => {
 
     return lines.map((line) => {
       const result = grammar.tokenizeLine(line, ruleStack);
-      ruleStack = result.ruleStack;
+      ({ ruleStack } = result);
 
       return {
         line,

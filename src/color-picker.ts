@@ -1,7 +1,8 @@
+// biome-ignore lint/correctness/noUndeclaredDependencies: the extension host provides vscode at runtime.
 import * as vscode from 'vscode';
 import { colors } from './colors';
 import type { ColorInfo } from './presets';
-import { PRESET_THEMES } from './presets';
+import { presetThemeOptions } from './presets';
 import type { TokenType } from './scopes';
 import { applyTheme, resetToDefaults, updateTokenColor } from './settings';
 
@@ -21,134 +22,134 @@ interface ColorCommandOption extends vscode.QuickPickItem {
 
 const colorCommandOptions: ColorCommandOption[] = [
   {
-    label: 'Guillemets Symbol Color                 ',
     description: '« »',
+    label: 'Guillemets Symbol Color                 ',
     tokenType: 'guillemets-symbol',
   },
   {
-    label: 'Guillemets Text Color                       ',
     description: '«content»',
+    label: 'Guillemets Text Color                       ',
     tokenType: 'guillemets-text',
   },
   {
-    label: 'Square Brackets Symbol Color       ',
     description: '[ ]',
+    label: 'Square Brackets Symbol Color       ',
     tokenType: 'brackets-symbol',
   },
   {
-    label: 'Square Brackets Text Color             ',
     description: '[content]',
+    label: 'Square Brackets Text Color             ',
     tokenType: 'brackets-text',
   },
   {
-    label: 'Parentheses Symbol Color              ',
     description: '( )',
+    label: 'Parentheses Symbol Color              ',
     tokenType: 'parentheses-symbol',
   },
   {
-    label: 'Parentheses Text Color                    ',
     description: '(content)',
+    label: 'Parentheses Text Color                    ',
     tokenType: 'parentheses-text',
   },
   {
-    label: 'Curly Braces Symbol Color              ',
     description: '{ }',
+    label: 'Curly Braces Symbol Color              ',
     tokenType: 'braces-symbol',
   },
   {
-    label: 'Curly Braces Text Color                   ',
     description: '{content}',
+    label: 'Curly Braces Text Color                   ',
     tokenType: 'braces-text',
   },
   {
-    label: 'Angle Brackets Symbol Color          ',
     description: '< >',
+    label: 'Angle Brackets Symbol Color          ',
     tokenType: 'angle-symbol',
   },
   {
-    label: 'Angle Brackets Text Color               ',
     description: '<content>',
+    label: 'Angle Brackets Text Color               ',
     tokenType: 'angle-text',
   },
   {
-    label: 'Bold Text Color                                ',
     description: '**content**',
+    label: 'Bold Text Color                                ',
     tokenType: 'bold-text',
   },
   {
-    label: 'Italic Text Color                                ',
     description: '*content*',
+    label: 'Italic Text Color                                ',
     tokenType: 'italic-text',
   },
   {
-    label: 'Code Text Color                              ',
     description: '`content`',
+    label: 'Code Text Color                              ',
     tokenType: 'code-text',
   },
   {
-    label: 'Strikethrough Text Color                ',
     description: '~~content~~',
+    label: 'Strikethrough Text Color                ',
     tokenType: 'strikethrough-text',
   },
-  { label: '', kind: vscode.QuickPickItemKind.Separator },
+  { kind: vscode.QuickPickItemKind.Separator, label: '' },
   {
     action: 'presets',
-    label: 'Apply Preset Theme             ',
     description:
       'Default • Colorblind Friendly • Ocean Breeze • Forest Glow • Sunset Vibes • Royal Purple • Professional',
+    label: 'Apply Preset Theme             ',
   },
   {
     action: 'reset',
-    label: 'Reset All Colors                    ',
     description: 'Restore defaults',
+    label: 'Reset All Colors                    ',
   },
 ];
 
 const colorFamilies: ColorFamilyOption[] = [
   {
-    label: '🔴 Red',
     description: 'Warm, energetic, attention-grabbing',
     family: 'red',
+    label: '🔴 Red',
   },
   {
-    label: '🟠 Orange',
     description: 'Vibrant, friendly, creative',
     family: 'orange',
+    label: '🟠 Orange',
   },
   {
-    label: '🟡 Amber',
     description: 'Warm, optimistic, warning',
     family: 'amber',
+    label: '🟡 Amber',
   },
   {
-    label: '🟢 Green',
     description: 'Natural, success, growth',
     family: 'green',
+    label: '🟢 Green',
   },
   {
-    label: '🔵 Blue',
     description: 'Cool, professional, trustworthy',
     family: 'blue',
+    label: '🔵 Blue',
   },
   {
-    label: '🟣 Purple',
     description: 'Creative, luxury, mysterious',
     family: 'purple',
+    label: '🟣 Purple',
   },
   {
-    label: '🩷 Pink',
     description: 'Playful, feminine, soft',
     family: 'pink',
+    label: '🩷 Pink',
   },
   {
-    label: '⚫ Slate',
     description: 'Clean, minimal, professional',
     family: 'slate',
+    label: '⚫ Slate',
   },
   {
-    label: '⚪ Gray',
     description: 'Neutral, balanced, subtle',
     family: 'gray',
+    label: '⚪ Gray',
   },
 ];
 
@@ -220,10 +221,10 @@ async function showTwoStepColorPicker(
     const preview = getColorPreview(color.scale);
 
     return {
-      label: `${preview} ${selectedFamily.family}-${color.scale}`,
       description: `${intensity} • ${color.hex.toUpperCase()}`,
       detail: `RGB: ${color.rgb} • HSL: ${color.hsl}`,
       hex: color.hex,
+      label: `${preview} ${selectedFamily.family}-${color.scale}`,
       name: `${selectedFamily.family}-${color.scale}`,
     };
   });
@@ -265,14 +266,7 @@ function getColorPreview(scale: number): string {
 }
 
 async function showPresetThemes(): Promise<void> {
-  const themeOptions = Object.entries(PRESET_THEMES).map(([name, theme]) => ({
-    label: name,
-    description: `${Object.keys(theme).length} colors`,
-    detail: `Guillemets: ${Object.values(theme)[0]} • Brackets: ${Object.values(theme)[1]}`,
-    theme,
-  }));
-
-  const selection = await vscode.window.showQuickPick(themeOptions, {
+  const selection = await vscode.window.showQuickPick(presetThemeOptions(), {
     placeHolder: 'Choose a preset theme',
   });
 

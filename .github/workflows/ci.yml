@@ -11,36 +11,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '24'
-    
-    - name: Setup Bun
-      uses: oven-sh/setup-bun@v1
-    
-    - name: Install dependencies
-      run: bun install
-    
-    - name: Compile TypeScript
-      run: bunx tsc -p ./
+      - uses: actions/checkout@v7
 
-    - name: Run tests
-      run: bun run test
-    
-    - name: Run Ultracite check
-      run: bunx ultracite check
-    
-    - name: Run markdownlint-cli2
-      run: bunx markdownlint-cli2 "**/*.md" "#node_modules"
-    
-    - name: Package extension
-      run: bun run package
-    
-    - name: Upload VSIX
-      uses: actions/upload-artifact@v4
-      with:
-        name: extension-package
-        path: '*.vsix'
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "26"
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Compile TypeScript
+        run: bunx tsc -p ./
+
+      - name: Run tests
+        run: bun run test
+
+      - name: Run Ultracite check
+        run: bunx ultracite check
+
+      - name: Run markdownlint-cli2
+        run: bunx markdownlint-cli2 "**/*.md" "#node_modules"
+
+      - name: Package extension
+        run: bun run package
+
+      - name: Upload VSIX
+        uses: actions/upload-artifact@v7
+        with:
+          name: extension-package
+          path: "*.vsix"

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.4.16/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.6.5/schema.json",
   "extends": ["ultracite/biome/core"],
   "javascript": {
     "formatter": {
@@ -21,9 +21,7 @@
       "suspicious": {
         "noExplicitAny": "off",
         "noEmptyBlockStatements": "off",
-        "noConsole": "off"
-      },
-      "nursery": {
+        "noConsole": "off",
         "noShadow": "off"
       }
     }

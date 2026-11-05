@@ -1,3 +1,4 @@
+// biome-ignore lint/correctness/noUndeclaredDependencies: the extension host provides vscode at runtime.
 import * as vscode from 'vscode';
 import type { Theme } from './presets';
 import {
@@ -8,12 +9,41 @@ import {
   type TokenType,
 } from './scopes';
 
-export async function updateTokenColor(
+function setTokenRule(
+  rules: TextMateRule[],
   tokenType: TokenType,
   color: string
+): void {
+  const scope = SCOPE_MAP[tokenType];
+  console.log(`Updating ${tokenType} (${scope}) to ${color}`);
+
+  const existingRuleIndex = rules.findIndex(
+    (rule) =>
+      rule.scope === scope ||
+      (Array.isArray(rule.scope) && rule.scope.includes(scope))
+  );
+
+  const newRule: TextMateRule = {
+    scope,
+    settings: {
+      foreground: color,
+    },
+  };
+
+  if (existingRuleIndex >= 0) {
+    console.log(`Updating existing rule at index ${existingRuleIndex}`);
+    rules[existingRuleIndex] = newRule;
+  } else {
+    console.log('Adding new rule');
+    rules.push(newRule);
+  }
+}
+
+// Each write replaces the whole setting, so a theme is applied in a single update.
+async function updateTokenColors(
+  updates: [TokenType, string][]
 ): Promise<void> {
   try {
-    console.log(`Updating token color for ${tokenType} to ${color}`);
     const config = vscode.workspace.getConfiguration();
     const tokenColors =
       (config.get('editor.tokenColorCustomizations') as
@@ -26,28 +56,8 @@ export async function updateTokenColor(
       tokenColors.textMateRules = [];
     }
 
-    const scope = SCOPE_MAP[tokenType];
-    console.log(`Updating ${tokenType} (${scope}) to ${color}`);
-
-    const existingRuleIndex = tokenColors.textMateRules.findIndex(
-      (rule) =>
-        rule.scope === scope ||
-        (Array.isArray(rule.scope) && rule.scope.includes(scope))
-    );
-
-    const newRule: TextMateRule = {
-      scope,
-      settings: {
-        foreground: color,
-      },
-    };
-
-    if (existingRuleIndex >= 0) {
-      console.log(`Updating existing rule at index ${existingRuleIndex}`);
-      tokenColors.textMateRules[existingRuleIndex] = newRule;
-    } else {
-      console.log('Adding new rule');
-      tokenColors.textMateRules.push(newRule);
+    for (const [tokenType, color] of updates) {
+      setTokenRule(tokenColors.textMateRules, tokenType, color);
     }
 
     console.log('Final tokenColors:', JSON.stringify(tokenColors, null, 2));
@@ -65,6 +75,13 @@ export async function updateTokenColor(
   }
 }
 
+export function updateTokenColor(
+  tokenType: TokenType,
+  color: string
+): Promise<void> {
+  return updateTokenColors([[tokenType, color]]);
+}
+
 export async function applyTheme(theme: Theme): Promise<void> {
   const config = vscode.workspace.getConfiguration();
   const originalFormatOnSave = config.get('editor.formatOnSave');
@@ -78,9 +95,7 @@ export async function applyTheme(theme: Theme): Promise<void> {
       );
     }
 
-    for (const [tokenType, color] of Object.entries(theme)) {
-      await updateTokenColor(tokenType as TokenType, color);
-    }
+    await updateTokenColors(Object.entries(theme) as [TokenType, string][]);
   } finally {
     if (originalFormatOnSave) {
       await config.update(

@@ -67,8 +67,8 @@ suite('Extension manifest', () => {
       'utf8'
     );
 
-    assert.match(vscodeIgnore, /^src\/\*\*$/m);
-    assert.match(vscodeIgnore, /^out\/test\/\*\*$/m);
-    assert.match(vscodeIgnore, /^\.husky\/\*\*$/m);
+    assert.match(vscodeIgnore, /^src\/\*\*$/mu);
+    assert.match(vscodeIgnore, /^out\/test\/\*\*$/mu);
+    assert.match(vscodeIgnore, /^\.husky\/\*\*$/mu);
   });
 });
